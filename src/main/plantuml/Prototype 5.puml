@@ -81,26 +81,25 @@ entity Content <<(V, #229988)Embeddable>>
     - Image: ImageBuffer
 }
 
-Metadata *-right- Change
-
-Change .up. ChangeType
-Change -right-> Account
-
-Account .up. Role
-
-Page -right-|> Metadata
-Page *-down- Section
+Page -up-|> Metadata
 
 Section -up-|> Metadata
-Section *-down- Item
+Section -down-* Page
 
-Item -up-|> Metadata
-Item -up-> Content
-Item .left. ItemType
+Item -right-|> Metadata
+Item -down-* Section
+Item -down-> Content
+Item .up. ItemType
 
-Comment -right-* Change
-Comment -down-* Page
+Comment -up-* Change
+Comment -left-* Page
 
 Content -up-|> Metadata
+
+Change -left-* Metadata
+Change -right-> Account
+Change .up. ChangeType
+
+Account .up. Role
 
 @enduml
