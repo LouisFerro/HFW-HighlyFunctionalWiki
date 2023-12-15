@@ -49,6 +49,7 @@ entity Page
 
 entity Comment
 {
+
     - Text: Text
     - Answers: Set<Comment>
 }
@@ -73,6 +74,11 @@ enum ItemType
     VIDEO
 }
 
+entity List
+{
+    - Items: Set<Item>
+}
+
 entity Content <<(V, #229988)Embeddable>>
 {
     - Paragraph: String
@@ -84,11 +90,16 @@ Page -up-|> Metadata
 Section -up-|> Metadata
 Section -down-* Page
 
+List -down-|> Metadata
+List -down-* Item
+
 Item -right-|> Metadata
 Item -down-* Section
+Item -up-o List
 Item -down-> Content
 Item .up. ItemType
 
+Comment -up-* Comment
 Comment -up-* Change
 Comment -left-* Page
 
