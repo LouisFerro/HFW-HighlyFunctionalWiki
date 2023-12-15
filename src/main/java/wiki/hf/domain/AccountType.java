@@ -1,6 +1,6 @@
 package wiki.hf.domain;
 
-public enum Role
+public enum AccountType
 {
     USER,
     EDITOR,

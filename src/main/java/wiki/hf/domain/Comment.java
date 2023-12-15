@@ -1,4 +1,18 @@
 package wiki.hf.domain;
 
-public class Comment {
+import jakarta.persistence.*;
+import lombok.*;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+@Data
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+
+@Entity
+@Table(name = "Comment")
+public class Comment extends AbstractPersistable<Long>
+{
+
 }

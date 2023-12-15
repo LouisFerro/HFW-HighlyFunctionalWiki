@@ -1,4 +1,22 @@
 package wiki.hf.domain;
 
-public class Account {
+import jakarta.persistence.*;
+import lombok.*;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+@Data
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+
+@Entity
+@Table(name = "Account")
+public class Account extends AbstractPersistable<Long>
+{
+    private String fullName;
+    private String username;
+    private String password;
+    private Change change;
+    private AccountType type;
 }

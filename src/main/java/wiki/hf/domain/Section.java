@@ -1,4 +1,17 @@
 package wiki.hf.domain;
 
-public class Section {
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@AllArgsConstructor
+
+@Entity
+@Table(name = "Section")
+public class Section extends Metadata
+{
+    private List<Item> items;
 }

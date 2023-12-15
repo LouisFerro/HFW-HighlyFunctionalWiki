@@ -1,4 +1,6 @@
 package wiki.hf.domain;
 
-public class Content {
+public class Content
+{
+
 }
