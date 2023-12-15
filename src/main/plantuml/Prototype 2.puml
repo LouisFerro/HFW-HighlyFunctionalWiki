@@ -1,0 +1,90 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+entity Account
+{
+
+firstName: String
+lastName: String
+username: String
+email: String
+mobile: String
+password: String
+role: Role
+}
+
+enum Role
+{
+    visitor
+    editor
+    valuedMember
+    administrator
+    owner
+}
+enum ContentType
+{
+    IMAGE
+    TEXT
+    FILE
+}
+
+entity Page
+{
+
+number: Integer
+name: String
+description: String
+permissionLevel: Role
+}
+entity Revision
+{
+
+page: Page
+description: String
+accountId: Account
+time: Timestamp
+}
+entity Redirect <<V,#229988,embeddable>>
+{
+    originalPage: Page
+    newPage: Page
+}
+
+class ImageFile <<(V, #229988)>>
+{
+
+width: Integer
+height: Integer
+}
+entity Content
+{
+
+address: String
+contentType: ContentType
+}
+entity Slot
+{
+
+revision:Revision
+content:Content
+placement: Integer
+}
+entity File<<A, #5050FF>>{
+
+address:String
+uploader: Account
+comment: String
+}
+
+
+Revision "0..n"-up-> "1" Slot
+Slot "1"<-- "0..n"Content
+Revision "1"-up->"0..n" Page
+Revision "1"-left->"0..n"Account
+File"1"--left>"0..n"Account
+Account .. Role
+Page .. Role
+Redirect "1"-->"0..n"Page
+Content..right.ContentType
+ImageFile --|>File
+@enduml

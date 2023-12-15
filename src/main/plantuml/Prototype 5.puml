@@ -1,0 +1,106 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+entity Account
+{
+    - FullName: String
+    - Username: String
+    - Email: String
+    - Mobile: Int
+    - Password: String
+    - Change: Change
+    - Role: Role
+}
+
+enum Role
+{
+    USER
+    EDITOR
+    ADMIN
+    OWNER
+}
+
+entity Change <<(V, #229988)Embeddable>>
+{
+    - Date: DateAndTimestamp
+    - Type: changeType
+    - Account: Account
+}
+
+enum ChangeType
+{
+    CREATE
+    EDIT
+    DELETE
+}
+
+abstract class Metadata <<Parent>>
+{
+    - Name: String
+    - Number: Int
+    - Description: String
+    - Change: Change
+}
+
+entity Page
+{
+    - Sections: Set<Section>
+    - Comments: Set<Comment>
+}
+
+entity Comment
+{
+    - Number: Int
+    - Text: Text
+    - Answers: Set<Comment>
+}
+
+entity Section
+{
+    - Items: Set<Item>
+}
+
+entity Item
+{
+    - Type: ItemType
+    - List: List
+    - Content: Content
+}
+
+enum ItemType
+{
+    PARAGRAPH
+    LIST
+    IMAGE
+    VIDEO
+}
+
+entity Content <<(V, #229988)Embeddable>>
+{
+    - Paragraph: String
+    - Image: ImageBuffer
+}
+
+Metadata *-right- Change
+
+Change .up. ChangeType
+Change -right-> Account
+
+Account .up. Role
+
+Page -right-|> Metadata
+Page *-down- Section
+
+Section -up-|> Metadata
+Section *-down- Item
+
+Item -up-|> Metadata
+Item -up-> Content
+Item .left. ItemType
+
+Comment -right-* Change
+Comment -down-* Page
+
+Content -up-|> Metadata
+
+@enduml

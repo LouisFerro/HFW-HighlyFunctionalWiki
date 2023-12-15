@@ -1,0 +1,103 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+entity Account
+{
+    - username: String
+    - displayName: String
+    - email: String
+    - mobile: String
+    - password: String
+    - createdAt: Date
+    - deletedAt Date
+    - role: Role
+}
+
+enum Role
+{
+    visitor
+    editor
+    administrator
+    owner
+}
+
+entity Page
+{
+    - number: Integer
+    - title: String
+    - description: String
+    - createdAt: Date
+    - deletedAt: Date
+}
+
+entity PageItems
+{
+    - number: Integer
+    - itemNumber: Integer
+    - pageNumber: Integer
+}
+
+entity Item
+{
+    number: Integer
+    LocalScope: Boolean
+    description: String
+}
+
+class Image <<(V, #229988)embeddable>>
+{
+    - content: Byte[]
+}
+
+class Heading <<(V, #229988)embeddable>>
+{
+    - level: String
+    - name: String
+}
+
+class Text <<(V, #229988)embeddable>>
+{
+    - level: String
+    - name: String
+    - content: String
+}
+
+class List <<(V, #229988)embeddable>>
+{
+    - level: String
+    - name: String
+    - content: set<>
+}
+
+entity GlobalObject
+{
+    - number: Integer
+    - name: String
+    - description: String
+    - type: String
+}
+
+entity LocalObject
+{
+    - level: String
+    - name: String
+    - description: String
+    - type: String
+}
+
+class ObjectLevel extends Object
+{
+    - level: String
+}
+
+
+
+GlobalObject -up- Item
+LocalObject -up- Item
+Heading -up-* Page
+Text -up-* Page
+List -up-* Page
+Image -right-* Item
+Account .. Role
+
+@enduml
