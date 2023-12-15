@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>at.spengergasse</groupId>
-	<artifactId>sj2324-seed</artifactId>
+	<artifactId>HFWiki</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SJ2324 Seedproject</name>
 	<description>Spring Boot seed project</description>
