@@ -1,4 +1,9 @@
 package wiki.hf.domain;
 
-public enum ItemType {
+public enum ItemType
+{
+    PARAGRAPH,
+    LIST,
+    IMAGE,
+    VIDEO
 }
