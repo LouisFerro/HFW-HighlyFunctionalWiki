@@ -37,7 +37,6 @@ enum ChangeType
 abstract class Metadata <<Parent>>
 {
     - Name: String
-    - Number: Int
     - Description: String
     - Change: Change
 }
@@ -50,7 +49,6 @@ entity Page
 
 entity Comment
 {
-    - Number: Int
     - Text: Text
     - Answers: Set<Comment>
 }
