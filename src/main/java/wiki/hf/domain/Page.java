@@ -12,14 +12,23 @@ import java.util.List;
 @Table(name = "Page")
 public class Page extends Metadata
 {
+    /*
     private List<Section> sections;
     private List<Comment> comments;
 
     @Builder
-    public Page(String name, String description, Change change, List<Section> sections, List<Comment> comments)
+    public Page(String name, String description, List<Section> sections, List<Comment> comments, Change change)
     {
         super(name, description, change);
         this.sections = sections;
         this.comments = comments;
+        this.change = change;
+    }
+    */
+
+    @Builder
+    public Page(String name, String description)
+    {
+        super(name, description);
     }
 }
