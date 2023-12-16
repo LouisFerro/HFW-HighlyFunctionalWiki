@@ -14,5 +14,5 @@ public abstract class Metadata extends AbstractPersistable<Long>
 {
     private String name;
     private String description;
-    private Change change;
+    //private Change change;
 }
