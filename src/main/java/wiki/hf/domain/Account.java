@@ -1,3 +1,5 @@
+/* TODO: Implement.
+
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
@@ -17,6 +19,8 @@ public class Account extends AbstractPersistable<Long>
     private String fullName;
     private String username;
     private String password;
-    private Change change;
+    //private Change change;
     private AccountType type;
 }
+
+*/

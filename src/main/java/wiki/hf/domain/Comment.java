@@ -1,3 +1,5 @@
+/* TODO: Implement
+
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
@@ -14,5 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Comment")
 public class Comment extends AbstractPersistable<Long>
 {
-
+    @Column(length = 255)
+    private String text;
 }
+*/
