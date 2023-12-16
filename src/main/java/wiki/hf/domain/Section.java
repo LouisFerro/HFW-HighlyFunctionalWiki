@@ -7,11 +7,17 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 
 @Entity
 @Table(name = "Section")
 public class Section extends Metadata
 {
     private List<Item> items;
+
+    @Builder
+    public Section(String name, String description, Change change, List<Item> items)
+    {
+        super(name, description, change);
+        this.items = items;
+    }
 }
