@@ -63,7 +63,7 @@ enum AccountType
 
 entity Change <<(V, #229988)Embeddable>>
 {
-    - Date: String
+    - Date: LocalDateTime
     - Type: ChangeType
 }
 
