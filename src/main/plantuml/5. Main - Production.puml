@@ -42,6 +42,7 @@ entity Content <<(V, #229988)Embeddable>>
 entity Comment
 {
     - String: Text
+    - Change: Change
 }
 
 entity Account
