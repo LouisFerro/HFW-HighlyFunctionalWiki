@@ -35,13 +35,13 @@ enum ItemType
 
 entity Content <<(V, #229988)Embeddable>>
 {
-    - Paragraph: String
-    - Image: ImageBuffer
+    - Text: String
+    - Image: Buffer
 }
 
 entity Comment
 {
-    - Text: Text
+    - String: Text
 }
 
 entity Account
@@ -63,9 +63,8 @@ enum AccountType
 
 entity Change <<(V, #229988)Embeddable>>
 {
-    - Date: DateAndTimestamp
-    - Type: changeType
-    - Account: Account
+    - Date: String
+    - Type: ChangeType
 }
 
 enum ChangeType
@@ -78,14 +77,14 @@ enum ChangeType
 Page -up-|> Metadata
 
 Section -up-|> Metadata
-Section -down-* Page
+Section -right-* Page
 
 Item -right-|> Metadata
 Item -down-* Section
-Item -down-> Content
+Item -right-> Content
 Item .up. ItemType
 
-Content -up-|> Metadata
+Content -right-|> Metadata
 
 Comment -up-* Change
 Comment -left-* Page
