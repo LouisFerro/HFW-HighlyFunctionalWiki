@@ -1,7 +1,37 @@
 package wiki.hf.persistence;
 
-import static org.junit.jupiter.api.Assertions.*;
+import wiki.hf.domain.*;
 
-class ItemRepositoryTest {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@DataJpaTest
+class ItemRepositoryTest
+{
+    @Autowired
+    private ItemRepository repository;
+    Item sword;
+
+    @BeforeEach
+    void Setup()
+    {
+        sword = Item.builder()
+                   .name("Sword")
+                   .description("A sword made of hardened steel.")
+                   .build();
+    }
+
+    @Test
+    void SavingItem()
+    {
+        var save = repository.save(sword);
+
+        assertThat(save).isNotNull().isSameAs(sword);
+        assertThat(save.getId()).isNotNull();
+    }
 }
