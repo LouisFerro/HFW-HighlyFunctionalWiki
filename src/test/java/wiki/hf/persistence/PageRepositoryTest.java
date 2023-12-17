@@ -1,3 +1,5 @@
+/*
+
 package wiki.hf.persistence;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,3 +48,5 @@ class PageRepositoryTest
         assertThat(find).isPresent();
     }
 }
+
+*/

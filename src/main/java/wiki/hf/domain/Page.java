@@ -1,3 +1,5 @@
+/* TODO: Implement with oneToMany relationship.
+
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
@@ -12,7 +14,6 @@ import java.util.List;
 @Table(name = "Page")
 public class Page extends Metadata
 {
-    /*
     private List<Section> sections;
     private List<Comment> comments;
 
@@ -24,11 +25,6 @@ public class Page extends Metadata
         this.comments = comments;
         this.change = change;
     }
-    */
-
-    @Builder
-    public Page(String name, String description)
-    {
-        super(name, description);
-    }
 }
+
+*/

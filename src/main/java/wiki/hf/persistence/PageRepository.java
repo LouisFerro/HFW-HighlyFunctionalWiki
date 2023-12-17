@@ -1,11 +1,17 @@
+/* TODO: Implement.
+
 package wiki.hf.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wiki.hf.domain.Page;
+import org.springframework.stereotype.Repository;
+import wiki.hf.domain.*;
 
 import java.util.Optional;
 
+@Repository
 public interface PageRepository extends JpaRepository<Page, Long>
 {
     Optional<Page> findByName(String name);
 }
+
+*/
