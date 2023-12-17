@@ -75,6 +75,15 @@ enum ChangeType
     DELETE
 }
 
+Account .up. AccountType
+
+Change -left-* Metadata
+Change -right-> Account
+Change -down-* Comment
+Change .up. ChangeType
+
+Comment -left-* Page
+
 Page -up-|> Metadata
 
 Section -up-|> Metadata
@@ -86,14 +95,5 @@ Item -right-> Content
 Item .up. ItemType
 
 Content -right-|> Metadata
-
-Comment -up-* Change
-Comment -left-* Page
-
-Change -left-* Metadata
-Change -right-> Account
-Change .up. ChangeType
-
-Account .up. AccountType
 
 @enduml
