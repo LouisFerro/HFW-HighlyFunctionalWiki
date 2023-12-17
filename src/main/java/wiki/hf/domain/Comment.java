@@ -1,4 +1,4 @@
-/* TODO: Implement
+// TODO: Implement
 
 package wiki.hf.domain;
 
@@ -16,7 +16,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Comment")
 public class Comment extends AbstractPersistable<Long>
 {
-    @Column(length = 255)
     private String text;
+    private @Embedded Change change;
 }
-*/

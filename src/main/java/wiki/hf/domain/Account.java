@@ -1,4 +1,4 @@
-/* TODO: Implement.
+// TODO: Implement.
 
 package wiki.hf.domain;
 
@@ -19,8 +19,6 @@ public class Account extends AbstractPersistable<Long>
     private String fullName;
     private String username;
     private String password;
-    //private Change change;
-    private AccountType type;
+    private @Embedded Change change;
+    private @Enumerated(EnumType.STRING) AccountType type;
 }
-
-*/

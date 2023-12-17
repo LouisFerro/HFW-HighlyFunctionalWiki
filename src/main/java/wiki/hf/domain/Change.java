@@ -1,23 +1,21 @@
-/* TODO: Implement as embeddable.
+// TODO: Implement as embeddable.
 
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 
-@Entity
-public class Change extends AbstractPersistable<Long>
+@Embeddable
+public class Change
 {
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-
-    @Enumerated(EnumType.STRING)
-    private ChangeType type;
+    private LocalDateTime date;
+    private @Enumerated(EnumType.STRING) ChangeType type;
 }
-*/
+
