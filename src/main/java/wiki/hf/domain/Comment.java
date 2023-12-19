@@ -1,4 +1,4 @@
-// TODO: Implement
+/* TODO: Implement
 
 package wiki.hf.domain;
 
@@ -19,3 +19,5 @@ public class Comment extends AbstractPersistable<Long>
     private String text;
     private @Embedded Change change;
 }
+
+*/
