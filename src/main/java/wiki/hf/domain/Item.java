@@ -12,14 +12,14 @@ import java.util.List;
 @Table(name = "Item")
 public class Item extends Metadata
 {
-    private @Enumerated(EnumType.STRING) ItemType type;
+    private @Enumerated(EnumType.STRING) ItemType itemType;
     private @Embedded Content content;
 
     @Builder
-    public Item(String name, String description, Change change, ItemType type, Content content)
+    public Item(String name, String description, Change change, ItemType itemType, Content content)
     {
         super(name, description, change);
-        this.type = type;
+        this.itemType = itemType;
         this.content = content;
     }
 }

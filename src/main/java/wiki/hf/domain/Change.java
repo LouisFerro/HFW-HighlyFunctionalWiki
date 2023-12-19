@@ -4,6 +4,7 @@ package wiki.hf.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +17,6 @@ import java.time.LocalDateTime;
 public class Change
 {
     private LocalDateTime date;
-    private @Enumerated(EnumType.STRING) ChangeType type;
+    private @Enumerated(EnumType.STRING) ChangeType changeType;
 }
 

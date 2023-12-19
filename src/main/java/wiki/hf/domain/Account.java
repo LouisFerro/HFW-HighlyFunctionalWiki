@@ -20,5 +20,5 @@ public class Account extends AbstractPersistable<Long>
     private String username;
     private String password;
     private @Embedded Change change;
-    private @Enumerated(EnumType.STRING) AccountType type;
+    private @Enumerated(EnumType.STRING) AccountType accountType;
 }
