@@ -1,6 +1,8 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -12,7 +14,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @MappedSuperclass
 public abstract class Metadata extends AbstractPersistable<Long>
 {
-    private String name;
+    private @NotNull @NotEmpty String name;
     private String description;
     private @Embedded Change change;
 }

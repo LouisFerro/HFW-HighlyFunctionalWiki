@@ -1,6 +1,7 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
@@ -10,8 +11,8 @@ import lombok.*;
 @Table(name = "Item")
 public class Item extends Metadata
 {
-    private @Enumerated(EnumType.STRING) ItemType itemType;
-    private @Embedded Content content;
+    private @NotNull @NotEmpty @Enumerated(EnumType.STRING) ItemType itemType;
+    private @NotNull @NotEmpty @Embedded Content content;
 
     @Builder
     public Item(String name, String description, Change change, ItemType itemType, Content content)

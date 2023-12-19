@@ -14,8 +14,8 @@ import java.util.List;
 @Table(name = "Page")
 public class Page extends Metadata
 {
-    private List<Section> sections;
-    private List<Comment> comments;
+    private @NotNull List<Section> sections;
+    private @NotNull List<Comment> comments;
 
     @Builder
     public Page(String name, String description, List<Section> sections, List<Comment> comments, Change change)

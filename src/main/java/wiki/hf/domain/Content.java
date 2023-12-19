@@ -1,4 +1,4 @@
-// TODO: Implement as embeddable.
+// TODO: Implement image as Buffer (or other proper data type).
 
 package wiki.hf.domain;
 

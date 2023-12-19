@@ -16,8 +16,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Comment")
 public class Comment extends AbstractPersistable<Long>
 {
-    private String text;
-    private @Embedded Change change;
+    private @NotNull @NotEmpty @Column(length = 16192) String text;
+    private @NotNull @NotEmpty @Embedded Change change;
 }
 
 */

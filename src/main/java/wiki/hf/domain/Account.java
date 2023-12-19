@@ -3,6 +3,7 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -17,8 +18,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Account extends AbstractPersistable<Long>
 {
     private String fullName;
-    private String username;
-    private String password;
+    private @NotNull @NotEmpty @Column(length = 64) String username;
+    private @NotNull @NotEmpty @Column(length = 64) String password;
     private @Embedded Change change;
     private @Enumerated(EnumType.STRING) AccountType accountType;
 }

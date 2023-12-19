@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "Section")
 public class Section extends Metadata
 {
-    private List<Item> items;
+    private @NotNull List<Item> items;
 
     @Builder
     public Section(String name, String description, List<Item> items, Change change)

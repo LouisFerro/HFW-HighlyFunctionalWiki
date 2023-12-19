@@ -3,6 +3,7 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Embeddable
 public class Change
 {
-    private LocalDateTime date;
+    private @NotNull LocalDateTime date;
     private @Enumerated(EnumType.STRING) ChangeType changeType;
 }
 
