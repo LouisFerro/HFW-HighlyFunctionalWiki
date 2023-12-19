@@ -1,4 +1,4 @@
-/*
+/* TODO: Implement.
 
 package wiki.hf.persistence;
 
@@ -32,7 +32,7 @@ class PageRepositoryTest
     @Test
     void SaveAndReadPage()
     {
-        var save = repository.save(homepage);
+        var save = repository.saveAndFlush(homepage);
 
         assertThat(save).isNotNull().isSameAs(homepage);
         assertThat(save.getId()).isNotNull();

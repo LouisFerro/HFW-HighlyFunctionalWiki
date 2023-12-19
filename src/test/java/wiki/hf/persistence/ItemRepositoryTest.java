@@ -29,7 +29,7 @@ class ItemRepositoryTest
     @Test
     void SavingItem()
     {
-        var save = repository.save(sword);
+        var save = repository.saveAndFlush(sword);
 
         assertThat(save).isNotNull().isSameAs(sword);
         assertThat(save.getId()).isNotNull();

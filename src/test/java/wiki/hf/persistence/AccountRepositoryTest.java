@@ -26,7 +26,7 @@ class AccountRepositoryTest
                              .password("password")
                              .build();
 
-        var save = repository.save(account);
+        var save = repository.saveAndFlush(account);
 
         assertThat(save).isNotNull().isSameAs(account);
         assertThat(save.getId()).isNotNull();
