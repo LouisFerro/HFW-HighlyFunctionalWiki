@@ -91,9 +91,8 @@ Section -right-* Page
 
 Item -right-|> Metadata
 Item -down-* Section
-Item -right-> Content
+Item -left-> Content
 Item .up. ItemType
 
-Content -right-|> Metadata
 
 @enduml
