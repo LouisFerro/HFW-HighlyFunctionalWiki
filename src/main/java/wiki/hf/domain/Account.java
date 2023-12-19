@@ -17,9 +17,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Account")
 public class Account extends AbstractPersistable<Long>
 {
-    private String fullName;
-    private @NotNull @NotEmpty @Column(length = 64) String username;
-    private @NotNull @NotEmpty @Column(length = 64) String password;
+    private @NotNull @NotEmpty @Column(length = 128) String fullName;
+    private @NotNull @NotEmpty @Column(length = 128) String username;
+    private @NotNull @NotEmpty @Column(length = 128) String password;
     private @Embedded Change change;
-    private @Enumerated(EnumType.STRING) AccountType accountType;
+    private @Column(length = 1) AccountType accountType;
 }

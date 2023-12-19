@@ -17,6 +17,6 @@ import java.time.LocalDateTime;
 public class Change
 {
     private @NotNull LocalDateTime date;
-    private @Enumerated(EnumType.STRING) ChangeType changeType;
+    private @Column(length = 1) ChangeType changeType;
 }
 
