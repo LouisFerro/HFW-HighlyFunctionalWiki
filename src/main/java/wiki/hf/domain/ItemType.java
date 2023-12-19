@@ -2,8 +2,8 @@ package wiki.hf.domain;
 
 public enum ItemType
 {
-    PARAGRAPH,
     LIST,
+    TEXT,
     IMAGE,
     VIDEO
 }

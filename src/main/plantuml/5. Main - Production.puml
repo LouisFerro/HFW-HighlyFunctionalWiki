@@ -27,8 +27,8 @@ entity Item
 
 enum ItemType
 {
-    PARAGRAPH
     LIST
+    TEXT
     IMAGE
     VIDEO
 }
