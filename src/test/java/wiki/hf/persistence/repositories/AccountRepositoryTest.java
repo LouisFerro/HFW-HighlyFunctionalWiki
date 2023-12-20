@@ -16,7 +16,7 @@ class AccountRepositoryTest
     private AccountRepository repository;
 
     @Test
-    void SavingAndReadingAnAccountTest()
+    void SavingAndReadingAnAccount()
     {
         var account = Account.builder()
                              .fullName("Louis Ferro")
