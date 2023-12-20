@@ -1,5 +1,3 @@
-// TODO: Implement as embeddable.
-
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
