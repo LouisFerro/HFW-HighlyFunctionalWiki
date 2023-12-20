@@ -18,6 +18,6 @@ public class Account extends AbstractPersistable<Long>
     private @NotNull @NotEmpty @Column(length = 128) String fullName;
     private @NotNull @NotEmpty @Column(length = 128) String username;
     private @NotNull @NotEmpty @Column(length = 128) String password;
-    private @Embedded Change change;
+    private @NotNull @Embedded Change change;
     private @Column(length = 1) AccountType accountType;
 }

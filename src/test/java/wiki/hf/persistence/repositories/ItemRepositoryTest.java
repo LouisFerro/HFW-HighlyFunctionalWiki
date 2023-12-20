@@ -23,6 +23,9 @@ class ItemRepositoryTest
         sword = Item.builder()
                    .name("Sword")
                    .description("A sword made of hardened steel.")
+                   .content(Content.builder()
+                                   .text("A sword made of hardened steel.")
+                                   .build())
                    .build();
     }
 

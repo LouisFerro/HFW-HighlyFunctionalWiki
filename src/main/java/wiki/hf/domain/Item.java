@@ -1,6 +1,7 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -11,7 +12,7 @@ import lombok.*;
 public class Item extends Metadata
 {
     private @Column(length = 1) ItemType itemType;
-    private @Embedded Content content;
+    private @NotNull @Embedded Content content;
 
     @Builder
     public Item(String name, String description, Change change, ItemType itemType, Content content)

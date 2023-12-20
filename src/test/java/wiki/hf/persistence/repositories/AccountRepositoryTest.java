@@ -1,7 +1,6 @@
 package wiki.hf.persistence.repositories;
 
 import wiki.hf.domain.Account;
-import wiki.hf.persistence.repositories.AccountRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

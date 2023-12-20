@@ -6,6 +6,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 
 @Embeddable
 public class Content
