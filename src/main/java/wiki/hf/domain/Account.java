@@ -1,5 +1,3 @@
-// TODO: Implement many-to-many relationships in respective entities.
-
 package wiki.hf.domain;
 
 import jakarta.persistence.*;

@@ -1,13 +1,12 @@
-/* TODO: Implement.
+package wiki.hf.persistence.repositories;
 
-package wiki.hf.persistence;
+import wiki.hf.domain.Account;
+import wiki.hf.persistence.repositories.AccountRepository;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import wiki.hf.domain.Account;
-
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @DataJpaTest
@@ -32,4 +31,3 @@ class AccountRepositoryTest
         assertThat(save.getId()).isNotNull();
     }
 }
-*/

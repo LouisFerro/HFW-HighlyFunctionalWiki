@@ -4,8 +4,6 @@ import wiki.hf.domain.*;
 import static wiki.hf.domain.ItemType.*;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.*;
 
 @Converter

@@ -1,4 +1,4 @@
-package wiki.hf.persistence;
+package wiki.hf.persistence.repositories;
 
 import wiki.hf.domain.*;
 
