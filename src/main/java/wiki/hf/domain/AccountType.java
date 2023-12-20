@@ -4,6 +4,6 @@ public enum AccountType
 {
     USER,
     EDITOR,
-    ADMIN,
+    ADMINISTRATOR,
     OWNER
 }
