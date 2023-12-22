@@ -6,7 +6,7 @@ import static wiki.hf.domain.ItemType.*;
 import jakarta.persistence.*;
 import java.util.*;
 
-@Converter
+@Converter(autoApply = true)
 public class ItemTypeConverter implements AttributeConverter<ItemType, String>
 {
     @Override

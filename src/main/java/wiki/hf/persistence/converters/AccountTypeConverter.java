@@ -6,7 +6,7 @@ import static wiki.hf.domain.AccountType.*;
 import jakarta.persistence.*;
 import java.util.*;
 
-@Converter
+@Converter(autoApply = true)
 public class AccountTypeConverter implements AttributeConverter<AccountType, String>
 {
     @Override

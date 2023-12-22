@@ -6,7 +6,7 @@ import static wiki.hf.domain.ChangeType.*;
 import jakarta.persistence.*;
 import java.util.*;
 
-@Converter
+@Converter(autoApply = true)
 public class ChangeTypeConverter implements AttributeConverter<ChangeType, String>
 {
     @Override
