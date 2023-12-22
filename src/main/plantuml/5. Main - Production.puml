@@ -21,8 +21,8 @@ entity Section
 
 entity Item
 {
-    - Type: ItemType
     - Content: Content
+    - Type: ItemType
 }
 
 enum ItemType
