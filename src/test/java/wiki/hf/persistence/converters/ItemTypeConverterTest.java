@@ -4,6 +4,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import wiki.hf.domain.*;
 
 import org.junit.jupiter.api.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -40,7 +42,7 @@ class ItemTypeConverterTest
     @Test
     void throwExceptionForInvalidColumn()
     {
-       var exception = assertThrows(IllegalArgumentException.class, () -> converter.convertToEntityAttribute("X"));
+       var exception = assertThrows(DataQualityException.class, () -> converter.convertToEntityAttribute("X"));
        assertThat(exception).hasMessage("\"X\" is not a valid value for Enumerator ItemType.");
     }
 }

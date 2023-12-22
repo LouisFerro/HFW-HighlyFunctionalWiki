@@ -4,6 +4,8 @@ import wiki.hf.domain.*;
 import static wiki.hf.domain.ItemType.*;
 
 import jakarta.persistence.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
+
 import java.util.*;
 
 @Converter(autoApply = true)
@@ -30,7 +32,7 @@ public class ItemTypeConverter implements AttributeConverter<ItemType, String>
                            case "T" -> TEXT;
                            case "I" -> IMAGE;
                            case "V" -> VIDEO;
-                           default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ItemType.".formatted(v));
+                           default -> throw DataQualityException.invalidValue(v, ItemType.class);
                        }).orElse(null);
     }
 }

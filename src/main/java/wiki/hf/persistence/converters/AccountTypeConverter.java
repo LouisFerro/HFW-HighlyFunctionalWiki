@@ -4,6 +4,8 @@ import wiki.hf.domain.*;
 import static wiki.hf.domain.AccountType.*;
 
 import jakarta.persistence.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
+
 import java.util.*;
 
 @Converter(autoApply = true)
@@ -30,7 +32,7 @@ public class AccountTypeConverter implements AttributeConverter<AccountType, Str
                     case "E" -> EDITOR;
                     case "A" -> ADMINISTRATOR;
                     case "O" -> OWNER;
-                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator AccountType.".formatted(v));
+                    default -> throw DataQualityException.invalidValue(v, AccountType.class);
                 }).orElse(null);
     }
 }

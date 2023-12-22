@@ -4,6 +4,8 @@ import wiki.hf.domain.*;
 import static wiki.hf.domain.ChangeType.*;
 
 import jakarta.persistence.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
+
 import java.util.*;
 
 @Converter(autoApply = true)
@@ -28,7 +30,7 @@ public class ChangeTypeConverter implements AttributeConverter<ChangeType, Strin
                     case "C" -> CREATE;
                     case "E" -> EDIT;
                     case "D" -> DELETE;
-                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ChangeType.".formatted(v));
+                    default -> throw DataQualityException.invalidValue(v, ChangeType.class);
                 }).orElse(null);
     }
 }
