@@ -11,8 +11,10 @@ import lombok.*;
 @Table(name = "Item")
 public class Item extends Metadata
 {
-    private @Column(length = 1) ItemType itemType;
     private @NotNull @Embedded Content content;
+
+    @Column(columnDefinition = "CHAR(1) CHECK(itemType in ('L', 'T', 'I', 'V')")
+    private ItemType itemType;
 
     @Builder
     public Item(String name, String description, Change change, ItemType itemType, Content content)

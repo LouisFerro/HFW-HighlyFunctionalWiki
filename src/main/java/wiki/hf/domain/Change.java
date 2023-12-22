@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 public class Change
 {
     private @NotNull LocalDateTime date;
-    private @Column(length = 1) ChangeType changeType;
+
+    @Column(columnDefinition = "CHAR(1) CHECK(changeType in ('C', 'E', 'D')")
+    private ChangeType changeType;
 }
 

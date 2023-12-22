@@ -19,5 +19,7 @@ public class Account extends AbstractPersistable<Long>
     private @NotNull @NotEmpty @Column(length = 128) String username;
     private @NotNull @NotEmpty @Column(length = 128) String password;
     private @NotNull @Embedded Change change;
-    private @Column(length = 1) AccountType accountType;
+
+    @Column(columnDefinition = "CHAR(1) CHECK(accountType in ('U', 'E', 'A', 'O')")
+    private AccountType accountType;
 }
