@@ -28,7 +28,7 @@ public class ChangeTypeConverter implements AttributeConverter<ChangeType, Strin
                     case "C" -> CREATE;
                     case "E" -> EDIT;
                     case "D" -> DELETE;
-                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ChangeType".formatted(v));
+                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ChangeType.".formatted(v));
                 }).orElse(null);
     }
 }

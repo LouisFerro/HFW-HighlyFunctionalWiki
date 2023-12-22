@@ -30,7 +30,7 @@ public class ItemTypeConverter implements AttributeConverter<ItemType, String>
                            case "T" -> TEXT;
                            case "I" -> IMAGE;
                            case "V" -> VIDEO;
-                           default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ItemType".formatted(v));
+                           default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator ItemType.".formatted(v));
                        }).orElse(null);
     }
 }

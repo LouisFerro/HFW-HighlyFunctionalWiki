@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.ANY)
 class AccountRepositoryTest
 {
     @Autowired

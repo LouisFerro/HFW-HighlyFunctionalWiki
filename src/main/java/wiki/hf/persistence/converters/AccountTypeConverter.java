@@ -30,7 +30,7 @@ public class AccountTypeConverter implements AttributeConverter<AccountType, Str
                     case "E" -> EDITOR;
                     case "A" -> ADMINISTRATOR;
                     case "O" -> OWNER;
-                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator AccountType".formatted(v));
+                    default -> throw new IllegalArgumentException("\"%s\" is not a valid value for Enumerator AccountType.".formatted(v));
                 }).orElse(null);
     }
 }
