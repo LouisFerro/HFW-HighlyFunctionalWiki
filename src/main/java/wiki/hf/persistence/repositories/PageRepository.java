@@ -1,4 +1,4 @@
-/* TODO: Implement.
+// TODO: Implement.
 
 package wiki.hf.persistence.repositories;
 
@@ -14,4 +14,3 @@ public interface PageRepository extends JpaRepository<Page, Long>
     Optional<Page> findByName(String name);
 }
 
-*/

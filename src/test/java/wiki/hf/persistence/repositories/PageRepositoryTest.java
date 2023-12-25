@@ -1,19 +1,16 @@
-/* TODO: Implement.
+// TODO: Implement.
 
-package wiki.hf.persistence;
+package wiki.hf.persistence.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
 import wiki.hf.domain.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
-//@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.ANY)
 class PageRepositoryTest
 {
     @Autowired
@@ -26,6 +23,10 @@ class PageRepositoryTest
         homepage = Page.builder()
                        .name("Home")
                        .description("The landing page")
+                       .action(Action.builder()
+                              .ActionType(ActionType.CREATE)
+                              .date(java.time.LocalDateTime.of(2023, 12, 20, 12, 0, 0))
+                              .build())
                        .build();
     }
 
@@ -48,5 +49,3 @@ class PageRepositoryTest
         assertThat(find).isPresent();
     }
 }
-
-*/
