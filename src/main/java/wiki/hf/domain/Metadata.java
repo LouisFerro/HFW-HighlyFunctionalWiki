@@ -14,6 +14,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public abstract class Metadata extends AbstractPersistable<Long>
 {
     private @NotNull @NotEmpty String name;
-    private String description;
+    private @NotNull String description;
     private @NotNull @Embedded Action Action;
 }

@@ -16,7 +16,7 @@ public class Item extends Metadata
     @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Section section;
 
-    @Column(columnDefinition = "CHAR(1) CHECK(itemType in ('L', 'T', 'I', 'V')")
+    @NotNull @Column(columnDefinition = "CHAR(1) CHECK(itemType in ('L', 'T', 'I', 'V')")
     private ItemType itemType;
 
     @Builder
