@@ -6,8 +6,6 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 
 @Entity
 @Table(name = "Section")
