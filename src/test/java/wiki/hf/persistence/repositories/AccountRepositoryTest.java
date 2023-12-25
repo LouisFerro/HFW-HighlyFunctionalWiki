@@ -1,5 +1,6 @@
 package wiki.hf.persistence.repositories;
 
+import org.junit.jupiter.api.BeforeEach;
 import wiki.hf.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,25 @@ class AccountRepositoryTest
     @Autowired
     private AccountRepository repository;
 
-    @Test
-    void CreatingAnAccount()
+    Account account;
+    @BeforeEach
+    void Setup()
     {
-        var account = Account.builder()
-                             .fullName("Louis Ferro")
-                             .username("Louisthemagic")
-                             .password("password")
-                             .action(Action.builder()
-                                           .ActionType(ActionType.CREATE)
-                                           .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                           .build())
-                             .build();
+        account = Account.builder()
+                         .fullName("Louis Ferro")
+                         .username("Louisthemagic")
+                         .password("password")
+                         .action(Action.builder()
+                                       .ActionType(ActionType.CREATE)
+                                       .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
+                                       .build())
+                         .build();
+    }
 
-        var save = repository.saveAndFlush(account);
+    @Test
+    void SaveAndReadAccount()
+    {
+        var save = repository.save(account);
 
         assertThat(save).isNotNull().isSameAs(account);
         assertThat(save.getId()).isNotNull();
