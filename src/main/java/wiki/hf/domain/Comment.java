@@ -1,8 +1,7 @@
-/* TODO: Implement
-
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -17,7 +16,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Comment extends AbstractPersistable<Long>
 {
     private @NotNull @NotEmpty @Column(length = 16192) String text;
-    private @Embedded Action Action;
-}
 
-*/
+    @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Page page;
+
+    private @Embedded Action action;
+}

@@ -1,28 +1,25 @@
-/* TODO: Implement with oneToMany relationship.
-
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "Section")
 public class Section extends Metadata
 {
-    private @NotNull List<Item> items;
+    @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Page page;
 
     @Builder
-    public Section(String name, String description, List<Item> items, Action Action)
+    public Section(String name, String description, Action action, Page page)
     {
-        super(name, description, Action);
-        this.items = items;
-        this.Action = Action;
+        super(name, description, action);
+        this.page = page;
     }
 }
-
-*/
