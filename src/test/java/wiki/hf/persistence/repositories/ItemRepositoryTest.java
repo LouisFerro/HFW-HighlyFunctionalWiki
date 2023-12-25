@@ -29,8 +29,8 @@ class ItemRepositoryTest
                    .content(Content.builder()
                                    .text("A sword made of hardened steel.")
                                    .build())
-                   .change(Change.builder()
-                                 .changeType(ChangeType.CREATE)
+                   .action(Action.builder()
+                                 .ActionType(ActionType.CREATE)
                                  .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
                                  .build())
                    .build();

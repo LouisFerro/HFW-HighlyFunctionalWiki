@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @Builder
 
 @Embeddable
-public class Change
+public class Action
 {
     private @NotNull LocalDateTime date;
 
-    @Column(columnDefinition = "CHAR(1) CHECK(changeType in ('C', 'E', 'D')")
-    private ChangeType changeType;
+    @Column(columnDefinition = "CHAR(1) CHECK(ActionType in ('C', 'E', 'D')")
+    private ActionType ActionType;
 }
 

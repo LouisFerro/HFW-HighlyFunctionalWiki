@@ -1,7 +1,7 @@
 package wiki.hf.persistence.converters;
 
 import wiki.hf.domain.*;
-import static wiki.hf.domain.ChangeType.*;
+import static wiki.hf.domain.ActionType.*;
 
 import jakarta.persistence.*;
 import wiki.hf.persistence.exceptions.DataQualityException;
@@ -9,12 +9,12 @@ import wiki.hf.persistence.exceptions.DataQualityException;
 import java.util.*;
 
 @Converter(autoApply = true)
-public class ChangeTypeConverter implements AttributeConverter<ChangeType, String>
+public class ActionTypeConverter implements AttributeConverter<ActionType, String>
 {
     @Override
-    public String convertToDatabaseColumn(ChangeType changeType)
+    public String convertToDatabaseColumn(ActionType ActionType)
     {
-        return Optional.ofNullable(changeType)
+        return Optional.ofNullable(ActionType)
                 .map(type -> switch (type) {
                     case CREATE -> "C";
                     case EDIT -> "E";
@@ -23,14 +23,14 @@ public class ChangeTypeConverter implements AttributeConverter<ChangeType, Strin
     }
 
     @Override
-    public ChangeType convertToEntityAttribute(String value)
+    public ActionType convertToEntityAttribute(String value)
     {
         return Optional.ofNullable(value)
                 .map(v -> switch (v) {
                     case "C" -> CREATE;
                     case "E" -> EDIT;
                     case "D" -> DELETE;
-                    default -> throw DataQualityException.invalidValue(v, ChangeType.class);
+                    default -> throw DataQualityException.invalidValue(v, ActionType.class);
                 }).orElse(null);
     }
 }

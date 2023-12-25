@@ -17,11 +17,11 @@ public class Section extends Metadata
     private @NotNull List<Item> items;
 
     @Builder
-    public Section(String name, String description, List<Item> items, Change change)
+    public Section(String name, String description, List<Item> items, Action Action)
     {
-        super(name, description, change);
+        super(name, description, Action);
         this.items = items;
-        this.change = change;
+        this.Action = Action;
     }
 }
 

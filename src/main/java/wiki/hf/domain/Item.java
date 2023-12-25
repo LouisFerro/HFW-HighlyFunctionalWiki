@@ -17,9 +17,9 @@ public class Item extends Metadata
     private ItemType itemType;
 
     @Builder
-    public Item(String name, String description, Change change, ItemType itemType, Content content)
+    public Item(String name, String description, Action action, ItemType itemType, Content content)
     {
-        super(name, description, change);
+        super(name, description, action);
         this.itemType = itemType;
         this.content = content;
     }

@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Comment extends AbstractPersistable<Long>
 {
     private @NotNull @NotEmpty @Column(length = 16192) String text;
-    private @Embedded Change change;
+    private @Embedded Action Action;
 }
 
 */

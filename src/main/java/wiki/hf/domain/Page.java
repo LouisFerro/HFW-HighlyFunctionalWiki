@@ -18,12 +18,12 @@ public class Page extends Metadata
     private @NotNull List<Comment> comments;
 
     @Builder
-    public Page(String name, String description, List<Section> sections, List<Comment> comments, Change change)
+    public Page(String name, String description, List<Section> sections, List<Comment> comments, Action Action)
     {
-        super(name, description, change);
+        super(name, description, Action);
         this.sections = sections;
         this.comments = comments;
-        this.change = change;
+        this.Action = Action;
     }
 }
 

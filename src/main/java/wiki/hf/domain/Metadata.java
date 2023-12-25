@@ -15,5 +15,5 @@ public abstract class Metadata extends AbstractPersistable<Long>
 {
     private @NotNull @NotEmpty String name;
     private String description;
-    private @NotNull @Embedded Change change;
+    private @NotNull @Embedded Action Action;
 }
