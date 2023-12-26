@@ -11,4 +11,3 @@ public interface PageRepository extends JpaRepository<Page, Long>
 {
     Optional<Page> findByName(String name);
 }
-
