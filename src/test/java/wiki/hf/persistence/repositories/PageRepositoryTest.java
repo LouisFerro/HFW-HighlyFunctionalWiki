@@ -15,6 +15,7 @@ class PageRepositoryTest
 {
     @Autowired
     private PageRepository repository;
+
     Page page;
 
     @BeforeEach
@@ -39,15 +40,22 @@ class PageRepositoryTest
         assertThat(save.getId()).isNotNull();
     }
 
-    /* TODO: Fix this test.
+    // TODO: Fix this test.
     @Test
-    void FindPageByName()
+    void SaveAndFindPagesByName()
     {
         repository.save(page);
 
         var find = repository.findByName("Weapons");
 
         assertThat(find).isPresent();
+    }
+
+    /*
+    @Test
+    void FindPageByAction()
+    {
+
     }
     */
 }
