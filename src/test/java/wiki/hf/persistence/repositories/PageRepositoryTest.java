@@ -1,5 +1,6 @@
 package wiki.hf.persistence.repositories;
 
+import org.aspectj.lang.annotation.Before;
 import wiki.hf.domain.*;
 
 import org.junit.jupiter.api.*;
@@ -19,36 +20,41 @@ class PageRepositoryTest
     Page page;
 
     @BeforeEach
-    void Setup()
+    void SetupPage()
     {
         page = Page.builder()
-                       .name("Weapons")
-                       .description("The Weapons of the game.")
-                       .action(Action.builder()
-                                     .ActionType(ActionType.CREATE)
-                                     .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                     .build())
-                       .build();
+                   .name("Weapons")
+                   .description("The Weapons of the game.")
+                   .action(Action.builder()
+                                 .ActionType(ActionType.CREATE)
+                                 .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
+                                 .build())
+                   .build();
+
+        repository.save(page);
     }
 
     @Test
-    void SaveAndReadPage()
+    void ReadPage()
     {
-        var save = repository.save(page);
-
-        assertThat(save).isNotNull().isSameAs(page);
-        assertThat(save.getId()).isNotNull();
+        assertThat(repository.save(page)).isNotNull().isSameAs(page);
+        assertThat(repository.save(page).getId()).isNotNull();
+        assertThat(repository.save(page).getName()).isEqualTo("Weapons");
     }
+
+    /*
+    @Test
+    void FindPageById()
+    {
+        assertThat(repository.findById()).isNotNull();
+    }
+    */
 
     // TODO: Fix this test.
     @Test
-    void SaveAndFindPagesByName()
+    void FindPageByName()
     {
-        repository.save(page);
-
-        var find = repository.findByName("Weapons");
-
-        assertThat(find).isPresent();
+        assertThat(repository.findByName("Weapons")).isPresent();
     }
 
     /*

@@ -20,7 +20,7 @@ class ItemRepositoryTest
     Item sword;
 
     @BeforeEach
-    void Setup()
+    void SetupItem()
     {
         sword = Item.builder()
                     .name("Sword")
@@ -50,14 +50,30 @@ class ItemRepositoryTest
                                     .build())
                     .itemType(ItemType.TEXT)
                     .build();
+
+        repository.save(sword);
     }
 
     @Test
-    void SavingItem()
+    void ReadItem()
     {
-        var save = repository.save(sword);
-
-        assertThat(save).isNotNull().isSameAs(sword);
-        assertThat(save.getId()).isNotNull();
+        assertThat(repository.save(sword)).isNotNull().isSameAs(sword);
+        assertThat(repository.save(sword).getName()).isEqualTo("Sword");
+        assertThat(repository.save(sword).getId()).isNotNull();
     }
+
+    // TODO: Fix this test.
+    @Test
+    void FindItemByName()
+    {
+        assertThat(repository.findByName("Sword")).isPresent();
+    }
+
+    /*
+    @Test
+    void FindItemByAction()
+    {
+
+    }
+    */
 }

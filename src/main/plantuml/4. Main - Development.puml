@@ -8,7 +8,7 @@ entity Account
     - Email: String
     - Mobile: Int
     - Password: String
-    - Change: Change
+    - Action: Action
     - Role: Role
 }
 
@@ -20,25 +20,25 @@ enum Role
     OWNER
 }
 
-entity Change <<(V, #229988)Embeddable>>
+entity Action <<(V, #229988)>>
 {
     - Date: DateAndTimestamp
-    - Type: changeType
+    - Type: ActionType
     - Account: Account
 }
 
-enum ChangeType
+enum ActionType
 {
     CREATE
     EDIT
     DELETE
 }
 
-abstract class Metadata <<Parent>>
+abstract class Metadata
 {
     - Name: String
     - Description: String
-    - Change: Change
+    - Action: Action
 }
 
 entity Page
@@ -56,7 +56,13 @@ entity Comment
 
 entity Section
 {
-    - Items: Set<Item>
+    - Items: Set<SectionItem>
+}
+
+entity SectionItem
+{
+    - Item: Item
+    - Section: Section
 }
 
 entity Item
@@ -79,7 +85,7 @@ entity List
     - Items: Set<Item>
 }
 
-entity Content <<(V, #229988)Embeddable>>
+entity Content <<(V, #229988)>>
 {
     - Paragraph: String
     - Image: ImageBuffer
@@ -90,24 +96,25 @@ Page -up-|> Metadata
 Section -up-|> Metadata
 Section -down-* Page
 
+SectionItem -up-* Item
+SectionItem -right-* Section
+
 List -down-|> Metadata
 List -down-* Item
 
 Item -right-|> Metadata
-Item -down-* Section
+'Item -down-* Section
 Item -up-o List
-Item -down-> Content
+Item -left-> Content
 Item .up. ItemType
 
 Comment -up-* Comment
-Comment -up-* Change
+Comment -up-* Action
 Comment -left-* Page
 
-Content -up-|> Metadata
-
-Change -left-* Metadata
-Change -right-> Account
-Change .up. ChangeType
+Action -left-* Metadata
+Action -right-> Account
+Action .up. ActionType
 
 Account .up. Role
 
