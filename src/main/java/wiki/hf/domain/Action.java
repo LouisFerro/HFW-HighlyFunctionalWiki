@@ -16,7 +16,7 @@ public class Action
 {
     private @NotNull LocalDateTime date;
 
-    @Column(columnDefinition = "CHAR(1) CHECK(ActionType in ('C', 'E', 'D')")
+    @NotNull @Column(columnDefinition = "CHAR(1) CHECK(action_type in ('C', 'E', 'D'))")
     private ActionType ActionType;
 }
 

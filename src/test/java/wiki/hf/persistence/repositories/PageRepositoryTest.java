@@ -1,15 +1,13 @@
 package wiki.hf.persistence.repositories;
 
-import org.aspectj.lang.annotation.Before;
 import wiki.hf.domain.*;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.LocalDateTime;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 class PageRepositoryTest

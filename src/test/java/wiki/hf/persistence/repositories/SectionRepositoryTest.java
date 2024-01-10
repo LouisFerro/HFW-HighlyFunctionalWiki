@@ -37,7 +37,6 @@ class SectionRepositoryTest
                          .build();
 
         repository.save(section);
-
     }
 
     @Test
@@ -52,7 +51,7 @@ class SectionRepositoryTest
     @Test
     void FindSectionByName()
     {
-        assertThat(repository.findByName("Weapons")).isPresent();
+        assertThat(repository.findByName("Basic weapons")).isPresent();
     }
 
     /*
