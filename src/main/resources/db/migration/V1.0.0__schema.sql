@@ -1,11 +1,7 @@
 create sequence account_seq start with 1 increment by 50;
-
 create sequence comment_seq start with 1 increment by 50;
-
 create sequence item_seq start with 1 increment by 50;
-
 create sequence page_seq start with 1 increment by 50;
-
 create sequence section_seq start with 1 increment by 50;
 
 create table account
