@@ -1,5 +1,6 @@
 package wiki.hf.persistence.repositories;
 
+import org.springframework.boot.test.context.TestConfiguration;
 import wiki.hf.domain.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
+@TestConfiguration("ApplicationTestConfiguration")
 class ItemRepositoryTest
 {
     @Autowired

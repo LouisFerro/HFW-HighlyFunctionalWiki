@@ -1,18 +1,19 @@
 package wiki.hf.persistence.repositories;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.test.context.TestConfiguration;
 import wiki.hf.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @DataJpaTest
+@TestConfiguration("ApplicationTestConfiguration")
 class AccountRepositoryTest
 {
     @Autowired
