@@ -20,6 +20,6 @@ public class Account extends AbstractPersistable<Long>
     private @NotBlank @Column(length = 128, nullable = false) String password;
     private @NotNull @Embedded Action action;
 
-    @NotNull @Column(columnDefinition = "CHAR(1) CHECK(account_type in ('U', 'E', 'A', 'O'))")
+    @NotNull @Column(nullable = false, columnDefinition = "varchar(1) check(account_type in ('U', 'E', 'A', 'O'))")
     private AccountType accountType;
 }
