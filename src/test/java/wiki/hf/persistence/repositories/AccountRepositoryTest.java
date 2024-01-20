@@ -1,19 +1,20 @@
 package wiki.hf.persistence.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.test.context.TestConfiguration;
+import wiki.hf.TestContainerConfiguration;
 import wiki.hf.domain.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-
 @DataJpaTest
-@TestConfiguration("ApplicationTestConfiguration")
+@Import(TestContainerConfiguration.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class AccountRepositoryTest
 {
     @Autowired

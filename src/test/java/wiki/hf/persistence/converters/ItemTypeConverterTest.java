@@ -1,15 +1,12 @@
 package wiki.hf.persistence.converters;
 
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import wiki.hf.domain.*;
-
-import org.junit.jupiter.api.*;
 import wiki.hf.persistence.exceptions.DataQualityException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
-@DataJpaTest
 class ItemTypeConverterTest
 {
     private ItemTypeConverter converter;
