@@ -15,9 +15,9 @@ public class Section extends Metadata
     private Page page;
 
     @Builder
-    public Section(String name, String description, Action action, Page page)
+    public Section(String name, String description, String version , Action action, Page page)
     {
-        super(name, description, action);
+        super(name, description, version, action);
         this.page = page;
     }
 }

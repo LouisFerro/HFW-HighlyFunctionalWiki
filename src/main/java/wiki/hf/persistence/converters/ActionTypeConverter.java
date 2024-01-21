@@ -17,7 +17,7 @@ public class ActionTypeConverter implements AttributeConverter<ActionType, Strin
         return Optional.ofNullable(ActionType)
                 .map(type -> switch (type) {
                     case CREATE -> "C";
-                    case EDIT -> "E";
+                    case UPDATE -> "U";
                     case DELETE -> "D";
                 }).orElse(null);
     }
@@ -28,7 +28,7 @@ public class ActionTypeConverter implements AttributeConverter<ActionType, Strin
         return Optional.ofNullable(value)
                 .map(v -> switch (v) {
                     case "C" -> CREATE;
-                    case "E" -> EDIT;
+                    case "U" -> UPDATE;
                     case "D" -> DELETE;
                     default -> throw DataQualityException.invalidValue(v, ActionType.class);
                 }).orElse(null);

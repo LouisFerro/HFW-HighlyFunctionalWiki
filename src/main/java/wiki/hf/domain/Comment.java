@@ -17,8 +17,12 @@ public class Comment extends AbstractPersistable<Long>
 {
     private @NotNull @NotEmpty @Column(length = 16192) String text;
 
+    @NotBlank @Column(length = 8, nullable = false, unique = true)
+    private String version;
+
+    private @NotNull @Embedded Action action;
+
     @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Page page;
 
-    private @NotNull @Embedded Action action;
 }

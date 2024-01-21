@@ -20,7 +20,7 @@ class ActionTypeConverterTest
     void convertValidAttributeToColumn()
     {
         assertThat(converter.convertToDatabaseColumn(ActionType.CREATE)).isEqualTo("C");
-        assertThat(converter.convertToDatabaseColumn(ActionType.EDIT)).isEqualTo("E");
+        assertThat(converter.convertToDatabaseColumn(ActionType.UPDATE)).isEqualTo("U");
         assertThat(converter.convertToDatabaseColumn(ActionType.DELETE)).isEqualTo("D");
         assertThat(converter.convertToDatabaseColumn(null)).isNull();
     }
@@ -29,7 +29,7 @@ class ActionTypeConverterTest
     void convertValidColumnToAttribute()
     {
         assertThat(converter.convertToEntityAttribute("C")).isEqualTo(ActionType.CREATE);
-        assertThat(converter.convertToEntityAttribute("E")).isEqualTo(ActionType.EDIT);
+        assertThat(converter.convertToEntityAttribute("U")).isEqualTo(ActionType.UPDATE);
         assertThat(converter.convertToEntityAttribute("D")).isEqualTo(ActionType.DELETE);
         assertThat(converter.convertToEntityAttribute(null)).isNull();
     }

@@ -9,11 +9,6 @@ import java.util.Optional;
 @Repository
 public interface PageRepository extends JpaRepository<Page, Long>
 {
-    /* TODO: Check on CRUD repository
-    @Override
-    Optional<Page> findById(Long id);
-    */
-
     Optional<Page> findByName(String name);
 
     /* TODO: Implement.

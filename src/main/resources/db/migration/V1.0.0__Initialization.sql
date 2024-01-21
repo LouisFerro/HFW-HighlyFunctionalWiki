@@ -7,12 +7,10 @@ create sequence section_seq start with 1 increment by 50;
 create table account
 (
     id           bigint                                                  not null,
-    username     varchar(128)                                            not null unique,
     full_name    varchar(265),
+    username     varchar(128)                                            not null unique,
     password     varchar(128)                                            not null,
     account_type varchar(1) check (account_type in ('U', 'E', 'A', 'O')) not null,
-    action_type  varchar(1) check (action_type in ('C', 'E', 'D'))       not null,
-    date         timestamp(6)                                            not null unique,
     primary key (id)
 );
 
@@ -20,9 +18,12 @@ create table comment
 (
     id          bigint                                            not null,
     page_id     bigint                                            not null,
+    account_id  bigint                                            not null,
     text        varchar(16192)                                    not null,
+    version     varchar(8)                                        not null unique,
     action_type varchar(1) check (action_type in ('C', 'E', 'D')) not null,
-    date        timestamp(6)                                      not null unique,
+    alteration  timestamp(6)                                      not null unique,
+    deletion    timestamp(6),
     primary key (id)
 );
 
@@ -30,10 +31,13 @@ create table item
 (
     id          bigint                                               not null,
     section_id  bigint                                               not null,
+    account_id  bigint                                               not null,
     name        varchar(265)                                         not null unique,
     description varchar(4048),
+    version     varchar(8)                                           not null unique,
     action_type varchar(1) check (action_type in ('C', 'E', 'D'))    not null,
-    date        timestamp(6)                                         not null unique,
+    alteration  timestamp(6)                                         not null unique,
+    deletion    timestamp(6),
     item_type   varchar(1) check (item_type in ('L', 'T', 'I', 'V')) not null,
     text        varchar(255),
     image       oid,
@@ -43,10 +47,13 @@ create table item
 create table page
 (
     id          bigint                                            not null,
+    account_id  bigint                                            not null,
     name        varchar(265)                                      not null unique,
     description varchar(4048),
+    version     varchar(8)                                        not null unique,
     action_type varchar(1) check (action_type in ('C', 'E', 'D')) not null,
-    date        timestamp(6)                                      not null unique,
+    alteration  timestamp(6)                                      not null unique,
+    deletion    timestamp(6),
     primary key (id)
 );
 
@@ -54,10 +61,13 @@ create table section
 (
     id          bigint                                            not null,
     page_id     bigint                                            not null,
+    account_id   bigint                                           not null,
     name        varchar(265)                                      not null unique,
     description varchar(4048),
+    version     varchar(8)                                        not null unique,
     action_type varchar(1) check (action_type in ('C', 'E', 'D')) not null,
-    date        timestamp(6)                                      not null unique,
+    alteration  timestamp(6)                                      not null unique,
+    deletion    timestamp(6),
     primary key (id)
 );
 

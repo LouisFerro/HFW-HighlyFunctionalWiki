@@ -14,10 +14,17 @@ import java.time.LocalDateTime;
 @Embeddable
 public class Action
 {
+    @NotNull @OneToOne
+    private Account account;
+
     @NotNull @PastOrPresent @Column(nullable = false, unique = true)
-    private LocalDateTime date;
+    private LocalDateTime alteration;
+
+    // TODO: Check for minimum number of days(30) between creation and deletion
+    @Future
+    private LocalDateTime deletion;
 
     @NotNull @Column(nullable = false, columnDefinition = "varchar(1) check(action_type in ('C', 'E', 'D'))")
-    private ActionType ActionType;
+    private ActionType actionType;
 }
 

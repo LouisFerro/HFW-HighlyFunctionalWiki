@@ -1,10 +1,42 @@
 @startuml
 'https://plantuml.com/class-diagram'
 
+entity Account
+{
+    - FullName: String
+    - Username: String
+    - Password: String
+    - AccountType: AccountType
+    - Action: Action
+}
+
+enum AccountType
+{
+    USER
+    EDITOR
+    ADMINISTRATOR
+    OWNER
+}
+
+entity Action <<(V, #229988)>>
+{
+    - Account: Account
+    - Date: LocalDateTime
+    - Type: ActionType
+}
+
+enum ActionType
+{
+    CREATE
+    UPDATE
+    DELETE
+}
+
 abstract class Metadata
 {
     - Name: String
     - Description: String
+    - Version: String
     - Action: Action
 }
 
@@ -42,47 +74,20 @@ entity Content <<(V, #229988)>>
 entity Comment
 {
     - String: Text
+    - String: Version
+    - Action: Action
     - Page: Page
-    - Action: Action
-}
-
-entity Account
-{
-    - FullName: String
-    - Username: String
-    - Password: String
-    - Action: Action
-    - AccountType: AccountType
-}
-
-enum AccountType
-{
-    USER
-    EDITOR
-    ADMINISTRATOR
-    OWNER
-}
-
-entity Action <<(V, #229988)>>
-{
-    - Date: LocalDateTime
-    - Type: ActionType
-}
-
-enum ActionType
-{
-    CREATE
-    EDIT
-    DELETE
 }
 
 Account .up. AccountType
+Account -left-> Action
 
-Action -left-* Metadata
 Action -right-> Account
-Action -down-* Comment
 Action .up. ActionType
 
+Metadata -right-> Action
+
+Comment -up-> Action
 Comment -left-* Page
 
 Page -up-|> Metadata
