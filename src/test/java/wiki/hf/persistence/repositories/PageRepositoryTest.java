@@ -15,32 +15,36 @@ import java.time.LocalDateTime;
 @Import(TestContainerConfiguration.class)
 class PageRepositoryTest
 {
-    @Autowired
-    private PageRepository repository;
+    private @Autowired AccountRepository accountRepository;
+    private @Autowired PageRepository pageRepository;
 
+    Account account;
+    Action action;
     Page page;
 
     @BeforeEach
     void SetupPage()
     {
+        account = TestFixtures.account();
+        accountRepository.save(account);
+
+        action = TestFixtures.action(account);
         page = Page.builder()
                    .name("Weapons")
                    .description("The Weapons of the game.")
-                   .action(Action.builder()
-                                 .ActionType(ActionType.CREATE)
-                                 .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                 .build())
+                   .version("0.1.0")
+                   .action(action)
                    .build();
 
-        repository.save(page);
+        pageRepository.save(page);
     }
 
     @Test
     void ReadPage()
     {
-        assertThat(repository.save(page)).isNotNull().isSameAs(page);
-        assertThat(repository.save(page).getId()).isNotNull();
-        assertThat(repository.save(page).getName()).isEqualTo("Weapons");
+        assertThat(pageRepository.save(page)).isNotNull().isSameAs(page);
+        assertThat(pageRepository.save(page).getId()).isNotNull();
+        assertThat(pageRepository.save(page).getName()).isEqualTo("Weapons");
     }
 
     /*
@@ -51,11 +55,10 @@ class PageRepositoryTest
     }
     */
 
-    // TODO: Fix this test.
     @Test
     void FindPageByName()
     {
-        assertThat(repository.findByName("Weapons")).isPresent();
+        assertThat(pageRepository.findByName("Weapons")).isPresent();
     }
 
     /*

@@ -22,23 +22,13 @@ class AccountRepositoryTest
     @BeforeEach
     void Setup()
     {
-        account = Account.builder()
-                         .fullName("Louis Ferro")
-                         .username("Louisthemagic")
-                         .password("password")
-                         .action(Action.builder()
-                                       .ActionType(ActionType.CREATE)
-                                       .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                       .build())
-                         .build();
+        account = TestFixtures.account();
     }
 
     @Test
     void SaveAndReadAccount()
     {
-        var save = repository.save(account);
-
-        assertThat(save).isNotNull().isSameAs(account);
-        assertThat(save.getId()).isNotNull();
+        assertThat(repository.save(account)).isNotNull().isSameAs(account);
+        assertThat(repository.save(account).getId()).isNotNull();
     }
 }

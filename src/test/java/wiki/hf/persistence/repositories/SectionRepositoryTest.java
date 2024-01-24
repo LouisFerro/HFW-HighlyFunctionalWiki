@@ -6,55 +6,56 @@ import wiki.hf.domain.*;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+
 import static org.assertj.core.api.AssertionsForClassTypes.*;
+
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
 
 @DataJpaTest
 @Import(TestContainerConfiguration.class)
-class SectionRepositoryTest
-{
-    @Autowired
-    private SectionRepository repository;
+class SectionRepositoryTest {
+
+    private @Autowired AccountRepository accountRepository;
+    private @Autowired SectionRepository sectionRepository;
+
+    Account account;
+    Action action;
     Section section;
 
     @BeforeEach
-    void SetupSection()
-    {
+    void SetUpSection() {
+        account = TestFixtures.account();
+        accountRepository.save(account);
+
+        action = TestFixtures.action(account);
         section = Section.builder()
-                         .name("Basic weapons")
-                         .description("All the weapons that are unlocked at the start of the game")
-                         .action(Action.builder()
-                                       .ActionType(ActionType.CREATE)
-                                       .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                       .build())
-                         .page(Page.builder()
-                                   .name("Weapons")
-                                   .description("The Weapons of the game")
-                                   .action(Action.builder()
-                                                 .ActionType(ActionType.CREATE)
-                                                 .date(LocalDateTime.of(2023, 12, 20, 12, 0, 0))
-                                                 .build())
-                                   .build())
-                         .build();
+                .name("Basic weapons")
+                .description("All the weapons that are unlocked at the start of the game")
+                .version("0.1.0")
+                .action(action)
+                .page(Page.builder()
+                        .name("Weapons")
+                        .description("The Weapons of the game")
+                        .version("0.1.0")
+                        .action(action)
+                        .build())
+                .build();
 
-        repository.save(section);
+        sectionRepository.save(section);
     }
 
     @Test
-    void ReadSection()
-    {
-        assertThat(repository.save(section)).isNotNull().isSameAs(section);
-        assertThat(repository.save(section).getName()).isEqualTo("Basic weapons");
-        assertThat(repository.save(section).getId()).isNotNull();
+    void ReadSection() {
+        assertThat(sectionRepository.save(section)).isNotNull().isSameAs(section);
+        assertThat(sectionRepository.save(section).getName()).isEqualTo("Basic weapons");
+        assertThat(sectionRepository.save(section).getId()).isNotNull();
     }
 
-    // TODO: Fix this test.
     @Test
-    void FindSectionByName()
-    {
-        assertThat(repository.findByName("Basic weapons")).isPresent();
+    void FindSectionByName() {
+        assertThat(sectionRepository.findByName("Basic weapons")).isPresent();
     }
 
     /*
