@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>
 {
+    Account findByFullNameIgnoreCase(String fullName);
 
+    Account findByUsernameIgnoreCase(String username);
+
+    Account findByUsernameAndPasswordIgnoreCase(String username, String password);
 }
