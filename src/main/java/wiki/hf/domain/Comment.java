@@ -24,5 +24,4 @@ public class Comment extends AbstractPersistable<Long>
 
     @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Page page;
-
 }

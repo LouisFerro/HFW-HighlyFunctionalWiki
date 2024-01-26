@@ -1,5 +1,3 @@
-// TODO: Implement.
-
 package wiki.hf.persistence.repositories;
 
 import wiki.hf.TestContainerConfiguration;
@@ -15,7 +13,43 @@ import java.time.LocalDateTime;
 
 @DataJpaTest
 @Import(TestContainerConfiguration.class)
-class CommentRepositoryTest
-{
+class CommentRepositoryTest {
 
+    private @Autowired CommentRepository repository;
+
+    Action action;
+    Comment comment;
+
+    @BeforeEach
+    void SetUpSection() {
+        action = TestFixtures.action(TestFixtures.account());
+        comment = Comment.builder()
+                .text("I like this page!")
+                .version("0.1.0")
+                .action(action)
+                .page(Page.builder()
+                        .name("Weapons")
+                        .description("The Weapons of the game")
+                        .version("0.1.0")
+                        .action(action)
+                        .build())
+                .build();
+
+        repository.save(comment);
+    }
+
+    @Test
+    void ReadSection() {
+        assertThat(repository.save(comment)).isNotNull().isSameAs(comment);
+        assertThat(repository.save(comment).getText()).isEqualTo("I like this page!");
+        assertThat(repository.save(comment).getId()).isNotNull();
+    }
+
+    /*
+    @Test
+    void FindSectionByAction()
+    {
+
+    }
+    */
 }
