@@ -17,19 +17,14 @@ import java.time.LocalDateTime;
 @Import(TestContainerConfiguration.class)
 class SectionRepositoryTest {
 
-    private @Autowired AccountRepository accountRepository;
-    private @Autowired SectionRepository sectionRepository;
+    private @Autowired SectionRepository repository;
 
-    Account account;
     Action action;
     Section section;
 
     @BeforeEach
     void SetUpSection() {
-        account = TestFixtures.account();
-        accountRepository.save(account);
-
-        action = TestFixtures.action(account);
+        action = TestFixtures.action(TestFixtures.account());
         section = Section.builder()
                 .name("Basic weapons")
                 .description("All the weapons that are unlocked at the start of the game")
@@ -43,19 +38,19 @@ class SectionRepositoryTest {
                         .build())
                 .build();
 
-        sectionRepository.save(section);
+        repository.save(section);
     }
 
     @Test
     void ReadSection() {
-        assertThat(sectionRepository.save(section)).isNotNull().isSameAs(section);
-        assertThat(sectionRepository.save(section).getName()).isEqualTo("Basic weapons");
-        assertThat(sectionRepository.save(section).getId()).isNotNull();
+        assertThat(repository.save(section)).isNotNull().isSameAs(section);
+        assertThat(repository.save(section).getName()).isEqualTo("Basic weapons");
+        assertThat(repository.save(section).getId()).isNotNull();
     }
 
     @Test
     void FindSectionByName() {
-        assertThat(sectionRepository.findByName("Basic weapons")).isPresent();
+        assertThat(repository.findByName("Basic weapons")).isPresent();
     }
 
     /*

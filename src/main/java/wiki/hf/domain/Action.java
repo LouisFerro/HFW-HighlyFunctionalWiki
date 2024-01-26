@@ -14,13 +14,12 @@ import java.time.LocalDateTime;
 @Embeddable
 public class Action
 {
-    @NotNull @OneToOne
+    @NotNull @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Account account;
 
     @NotNull @PastOrPresent @Column(nullable = false, unique = true)
     private LocalDateTime alteration;
 
-    // TODO: Check for minimum number of days(30) between creation and deletion
     @Future
     private LocalDateTime deletion;
 

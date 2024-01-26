@@ -15,20 +15,14 @@ import java.time.LocalDateTime;
 @Import(TestContainerConfiguration.class)
 class PageRepositoryTest
 {
-    private @Autowired AccountRepository accountRepository;
-    private @Autowired PageRepository pageRepository;
+    private @Autowired PageRepository repository;
 
-    Account account;
     Action action;
     Page page;
 
     @BeforeEach
-    void SetupPage()
-    {
-        account = TestFixtures.account();
-        accountRepository.save(account);
-
-        action = TestFixtures.action(account);
+    void SetupPage() {
+        action = TestFixtures.action(TestFixtures.account());
         page = Page.builder()
                    .name("Weapons")
                    .description("The Weapons of the game.")
@@ -36,15 +30,15 @@ class PageRepositoryTest
                    .action(action)
                    .build();
 
-        pageRepository.save(page);
+        repository.save(page);
     }
 
     @Test
     void ReadPage()
     {
-        assertThat(pageRepository.save(page)).isNotNull().isSameAs(page);
-        assertThat(pageRepository.save(page).getId()).isNotNull();
-        assertThat(pageRepository.save(page).getName()).isEqualTo("Weapons");
+        assertThat(repository.save(page)).isNotNull().isSameAs(page);
+        assertThat(repository.save(page).getId()).isNotNull();
+        assertThat(repository.save(page).getName()).isEqualTo("Weapons");
     }
 
     /*
@@ -58,7 +52,7 @@ class PageRepositoryTest
     @Test
     void FindPageByName()
     {
-        assertThat(pageRepository.findByName("Weapons")).isPresent();
+        assertThat(repository.findByName("Weapons")).isPresent();
     }
 
     /*

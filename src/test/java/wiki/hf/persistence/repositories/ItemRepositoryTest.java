@@ -17,19 +17,14 @@ import java.time.LocalDateTime;
 @Import(TestContainerConfiguration.class)
 class ItemRepositoryTest {
 
-    private @Autowired AccountRepository accountRepository;
-    private @Autowired ItemRepository itemRepository;
+    private @Autowired ItemRepository repository;
 
-    Account account;
     Action action;
     Item sword;
 
     @BeforeEach
     void SetupItem() {
-        account = TestFixtures.account();
-        accountRepository.save(account);
-
-        action = TestFixtures.action(account);
+        action = TestFixtures.action(TestFixtures.account());
         sword = Item.builder()
                 .name("Sword")
                 .description("A sword made of hardened steel")
@@ -53,19 +48,19 @@ class ItemRepositoryTest {
                 .itemType(ItemType.TEXT)
                 .build();
 
-        itemRepository.save(sword);
+        repository.save(sword);
     }
 
     @Test
     void ReadItem() {
-        assertThat(itemRepository.save(sword)).isNotNull().isSameAs(sword);
-        assertThat(itemRepository.save(sword).getName()).isEqualTo("Sword");
-        assertThat(itemRepository.save(sword).getId()).isNotNull();
+        assertThat(repository.save(sword)).isNotNull().isSameAs(sword);
+        assertThat(repository.save(sword).getName()).isEqualTo("Sword");
+        assertThat(repository.save(sword).getId()).isNotNull();
     }
 
     @Test
     void FindItemByName() {
-        assertThat(itemRepository.findByName("Sword")).isPresent();
+        assertThat(repository.findByName("Sword")).isPresent();
     }
 
     /*
