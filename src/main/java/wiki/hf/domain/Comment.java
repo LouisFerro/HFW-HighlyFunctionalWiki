@@ -15,13 +15,19 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Comment")
 public class Comment extends AbstractPersistable<Long>
 {
-    private @NotNull @NotEmpty @Column(length = 16192) String text;
+    @NotNull @NotEmpty
+    @Column(length = 16192)
+    private  String text;
 
-    @NotBlank @Column(length = 8, nullable = false, unique = true)
+    @NotBlank
+    @Column(length = 8, nullable = false, unique = true)
     private String version;
 
-    private @NotNull @Embedded Action action;
+    @NotNull @Embedded
+    private Action action;
 
-    @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @NotNull
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "pageComment"))
     private Page page;
 }

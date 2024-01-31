@@ -11,7 +11,9 @@ import lombok.*;
 @Table(name = "Section")
 public class Section extends Metadata
 {
-    @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @NotNull
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "sectionPage"))
     private Page page;
 
     @Builder

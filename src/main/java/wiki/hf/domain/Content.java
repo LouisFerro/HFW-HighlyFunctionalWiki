@@ -1,6 +1,7 @@
 package wiki.hf.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -11,6 +12,10 @@ import lombok.*;
 @Embeddable
 public class Content
 {
+    @NotBlank
     private String text;
-    private @Lob @Column(length = 1000) byte[] image;
+
+    @Lob
+    @Column(length = 1000)
+    private byte[] image;
 }

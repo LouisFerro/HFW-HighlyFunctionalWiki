@@ -11,12 +11,16 @@ import lombok.*;
 @Table(name = "Item")
 public class Item extends Metadata
 {
-    private @NotNull @Embedded Content content;
+    @NotNull @Embedded
+    private Content content;
 
-    @NotNull @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @NotNull
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "itemSection"))
     private Section section;
 
-    @NotNull @Column(nullable = false, columnDefinition = "varchar(1) check(item_type in ('L', 'T', 'I', 'V'))")
+    @NotNull
+    @Column(nullable = false, columnDefinition = "varchar(1) check(item_type in ('L', 'T', 'I', 'V'))")
     private ItemType itemType;
 
     @Builder

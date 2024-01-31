@@ -13,13 +13,17 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @MappedSuperclass
 public abstract class Metadata extends AbstractPersistable<Long>
 {
-    @NotBlank @Column(length = 265, nullable = false, unique = true)
+    @NotBlank
+    @Column(length = 265, nullable = false, unique = true)
     private String name;
 
-    private @Column(length = 4048) String description;
+    @Column(length = 4048)
+    private String description;
 
-    @NotBlank @Column(length = 8, nullable = false, unique = true)
+    @NotBlank
+    @Column(length = 8, nullable = false, unique = true)
     private String version;
 
-    private @NotNull Action action;
+    @NotNull @Embedded
+    private Action action;
 }
