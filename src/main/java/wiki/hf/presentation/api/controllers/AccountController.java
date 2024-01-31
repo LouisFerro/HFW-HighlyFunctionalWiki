@@ -1,4 +1,4 @@
-package wiki.hf.presentation.api;
+package wiki.hf.presentation.api.controllers;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;

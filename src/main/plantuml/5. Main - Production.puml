@@ -37,7 +37,6 @@ abstract class Metadata
 {
     - Name: String
     - Description: String
-    - Version: String
     - Action: Action
 }
 
@@ -49,12 +48,14 @@ entity Page
 entity Section
 {
     - Page: Page
+    - Section: Section
 }
 
 entity Item
 {
     - Content: Content
     - Section: Section
+    - Item: Item
     - Type: ItemType
 }
 
@@ -75,31 +76,30 @@ entity Content <<(V, #229988)>>
 entity Comment
 {
     - String: Text
-    - String: Version
-    - Action: Action
+    - Boolean: Edited
     - Page: Page
 }
 
 Account .up. AccountType
-Account -left-> Action
+Account -right-> Action
 
-Action -right-> Account
+Action -left-> Account
 Action .up. ActionType
 
-Metadata -right-> Action
+Metadata -left-> Action
 
-Comment -up-> Action
-Comment -left-* Page
+Comment -right-* Page
 
 Page -up-|> Metadata
 
 Section -up-|> Metadata
-Section -right-* Page
+Section -left-* Page
+Section -up-> Section
 
-Item -right-|> Metadata
+Item -left-|> Metadata
 Item -down-* Section
-Item -left-> Content
+Item -right-> Content
 Item .up. ItemType
-
+Item -up-> Item
 
 @enduml
