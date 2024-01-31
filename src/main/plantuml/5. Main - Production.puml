@@ -21,7 +21,8 @@ enum AccountType
 entity Action <<(V, #229988)>>
 {
     - Account: Account
-    - Date: LocalDateTime
+    - Alteration: LocalDateTime
+    - Deletion: LocalDateTime
     - Type: ActionType
 }
 
