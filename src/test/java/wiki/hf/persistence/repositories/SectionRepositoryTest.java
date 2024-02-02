@@ -28,12 +28,10 @@ class SectionRepositoryTest {
         section = Section.builder()
                 .name("Basic weapons")
                 .description("All the weapons that are unlocked at the start of the game")
-                .version("0.1.0")
                 .action(action)
                 .page(Page.builder()
                         .name("Weapons")
                         .description("The Weapons of the game")
-                        .version("0.1.0")
                         .action(action)
                         .build())
                 .build();

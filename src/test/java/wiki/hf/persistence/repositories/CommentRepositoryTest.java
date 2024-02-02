@@ -25,12 +25,10 @@ class CommentRepositoryTest {
         action = TestFixtures.action(TestFixtures.account());
         comment = Comment.builder()
                 .text("I like this page!")
-                .version("0.1.0")
                 .action(action)
                 .page(Page.builder()
                         .name("Weapons")
                         .description("The Weapons of the game")
-                        .version("0.1.0")
                         .action(action)
                         .build())
                 .build();
