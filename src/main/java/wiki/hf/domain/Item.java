@@ -23,6 +23,9 @@ public class Item extends Metadata
     @Column(nullable = false, columnDefinition = "varchar(1) check(item_type in ('L', 'T', 'I', 'V'))")
     private ItemType itemType;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "parentItem"))
+    private Item item;
     @Builder
     public Item(String name, String description, Action action, ItemType itemType, Section section, Content content)
     {

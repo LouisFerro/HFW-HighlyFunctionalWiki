@@ -16,6 +16,10 @@ public class Section extends Metadata
     @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "sectionPage"))
     private Page page;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "parentSection"))
+    private Section section;
+
     @Builder
     public Section(String name, String description , Action action, Page page)
     {

@@ -25,7 +25,7 @@ class CommentRepositoryTest {
         action = TestFixtures.action(TestFixtures.account());
         comment = Comment.builder()
                 .text("I like this page!")
-                .action(action)
+                .edited(true)
                 .page(Page.builder()
                         .name("Weapons")
                         .description("The Weapons of the game")

@@ -18,10 +18,9 @@ public class Comment extends AbstractPersistable<Long>
     @NotNull @NotEmpty
     @Column(length = 16192)
     private  String text;
-    //TODO: make Boolean Edited
 
-    @NotNull @Embedded
-    private Action action;
+    @NotNull
+    private Boolean edited;
 
     @NotNull
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
