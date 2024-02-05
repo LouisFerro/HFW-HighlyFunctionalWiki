@@ -18,13 +18,13 @@ public class AccountService {
 
     private final AccountRepository repository;
 
-    public List<Account> findByName(String fullName, String username) {
-        if(fullName != null && username != null) {
-            return repository.findByFullNameAndUsernameLikeIgnoreCase(fullName, username);
-        } else if(fullName != null) {
-            return repository.findByFullNameLikeIgnoreCase(fullName);
-        } else if(username != null) {
-            return repository.findByUsernameLikeIgnoreCase(username);
+    public List<Account> findAllByName(String fullName, String username) {
+        if (fullName != null && username != null) {
+            return repository.findAllByFullNameAndUsernameLikeIgnoreCase(fullName, username);
+        } else if (fullName != null) {
+            return repository.findAllByFullNameLikeIgnoreCase(fullName);
+        } else if (username != null) {
+            return repository.findAllByUsernameLikeIgnoreCase(username);
         } else {
             return repository.findAll();
         }

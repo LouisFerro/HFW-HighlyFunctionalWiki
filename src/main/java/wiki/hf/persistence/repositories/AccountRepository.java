@@ -8,13 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long>
-{
-    List<Account> findByFullNameLikeIgnoreCase(String fullName);
+public interface AccountRepository extends JpaRepository<Account, Long> {
+    List<Account> findAllByFullNameLikeIgnoreCase(String fullName);
 
-    List<Account> findByUsernameLikeIgnoreCase(String username);
+    List<Account> findAllByUsernameLikeIgnoreCase(String username);
 
-    List<Account> findByFullNameAndUsernameLikeIgnoreCase(String fullName, String username);
+    List<Account> findAllByFullNameAndUsernameLikeIgnoreCase(String fullName, String username);
 
     Account findByUsernameIgnoreCase(String username);
 

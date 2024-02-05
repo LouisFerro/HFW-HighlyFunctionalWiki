@@ -21,12 +21,12 @@ public class AccountController {
 
     @GetMapping
     public HttpEntity<List<AccountDTO>> getAccounts(@RequestParam Optional<String> fullName, @RequestParam Optional<String> username) {
-        List<AccountDTO> accountDTO = service.findByName(fullName.toString(), username.toString())
-                                             .stream()
-                                             .map(AccountDTO::new)
-                                             .toList();
+        List<AccountDTO> accountDTO = service.findAllByName(fullName.toString(), username.toString())
+                .stream()
+                .map(AccountDTO::new)
+                .toList();
 
         return accountDTO.isEmpty() ? ResponseEntity.noContent().build()
-                                    : ResponseEntity.ok(accountDTO);
+                : ResponseEntity.ok(accountDTO);
     }
 }
