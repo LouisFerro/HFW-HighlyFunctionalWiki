@@ -1,4 +1,4 @@
-package wiki.hf.presentation.api.dto;
+package wiki.hf.presentation.api.dataTransferObjects;
 
 import wiki.hf.domain.Account;
 
