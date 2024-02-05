@@ -61,7 +61,7 @@ create table section
 (
     id          bigint                                            not null,
     page_id     bigint                                            not null,
-    account_id   bigint                                           not null,
+    account_id  bigint                                            not null,
     name        varchar(265)                                      not null unique,
     description varchar(4048),
     version     varchar(8)                                        not null unique,
