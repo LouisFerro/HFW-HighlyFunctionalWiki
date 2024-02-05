@@ -1,9 +1,8 @@
 package wiki.hf.foundation;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Verification {
+public class NullabilityVerification {
 
     public static Predicate<? super Object> nullFilter = o -> o == null;
     public static Predicate<? super Object> nonNullFilter = nullFilter.negate();
@@ -13,7 +12,7 @@ public class Verification {
     }
 
     public static <T> T notNull(T argument, String argumentName) {
-        if(argument == null) {
+        if (argument == null) {
             throw new IllegalArgumentException("%s must not be null!".formatted(argumentName));
         }
         return argument;

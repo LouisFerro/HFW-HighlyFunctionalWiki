@@ -1,7 +1,7 @@
 package wiki.hf.foundation;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static wiki.hf.foundation.Verification.*;
+import static wiki.hf.foundation.NullabilityVerification.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,10 +13,10 @@ class VerificationTest {
 
     @Test
     void CheckNullability() {
-        assertThat(Verification.notNull("not null")).isEqualTo("not null");
+        assertThat(NullabilityVerification.notNull("not null")).isEqualTo("not null");
 
-        assertThat(assertThrows(IllegalArgumentException.class, () -> Verification.notNull(null)))
-                   .hasMessageContaining("argument must not be null!");
+        assertThat(assertThrows(IllegalArgumentException.class, () -> NullabilityVerification.notNull(null)))
+                .hasMessageContaining("argument must not be null!");
     }
 
     @Test
