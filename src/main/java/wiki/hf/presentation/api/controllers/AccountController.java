@@ -21,7 +21,7 @@ public class AccountController {
 
     @GetMapping
     public HttpEntity<List<AccountDTO>> getAccounts(@RequestParam Optional<String> fullName, @RequestParam Optional<String> username) {
-        List<AccountDTO> accountDTO = service.findAllByName(fullName.toString(), username.toString())
+        List<AccountDTO> accountDTO = service.findAllByName(fullName, username)
                 .stream()
                 .map(AccountDTO::new)
                 .toList();
