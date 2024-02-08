@@ -22,7 +22,6 @@ entity Action <<(V, #229988)>>
 {
     - Account: Account
     - Alteration: LocalDateTime
-    - Deletion: LocalDateTime
     - Type: ActionType
 }
 
@@ -76,7 +75,6 @@ entity Content <<(V, #229988)>>
 entity Comment
 {
     - String: Text
-    - Boolean: Edited
     - Page: Page
 }
 
@@ -88,6 +86,7 @@ Action .up. ActionType
 
 Metadata -left-> Action
 
+Comment -up-> Action
 Comment -right-* Page
 
 Page -up-|> Metadata

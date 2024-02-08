@@ -11,8 +11,8 @@ import lombok.*;
 public class Page extends Metadata
 {
     @Builder
-    public Page(String name, String description, String version, Action action)
+    public Page(String name, String description, Action action)
     {
-        super(name, description, version, action);
+        super(name, description, action);
     }
 }

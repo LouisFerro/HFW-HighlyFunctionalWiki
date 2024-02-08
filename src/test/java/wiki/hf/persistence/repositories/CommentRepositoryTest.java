@@ -6,10 +6,10 @@ import wiki.hf.domain.*;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import org.junit.jupiter.api.*;
 
-import java.time.LocalDateTime;
 
 @DataJpaTest
 @Import(TestContainerConfiguration.class)
@@ -21,16 +21,14 @@ class CommentRepositoryTest {
     Comment comment;
 
     @BeforeEach
-    void SetUpSection() {
+    void SetupComment() {
         action = TestFixtures.action(TestFixtures.account());
         comment = Comment.builder()
                 .text("I like this page!")
-                .version("0.1.0")
                 .action(action)
                 .page(Page.builder()
                         .name("Weapons")
                         .description("The Weapons of the game")
-                        .version("0.1.0")
                         .action(action)
                         .build())
                 .build();
@@ -39,7 +37,7 @@ class CommentRepositoryTest {
     }
 
     @Test
-    void ReadSection() {
+    void ReadComment() {
         assertThat(repository.save(comment)).isNotNull().isSameAs(comment);
         assertThat(repository.save(comment).getText()).isEqualTo("I like this page!");
         assertThat(repository.save(comment).getId()).isNotNull();

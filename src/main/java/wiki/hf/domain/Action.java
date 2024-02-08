@@ -18,12 +18,9 @@ public class Action
     @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Account account;
 
-    @NotNull @PastOrPresent
+    @NotNull
     @Column(nullable = false, unique = true)
     private LocalDateTime alteration;
-
-    @Future
-    private LocalDateTime deletion;
 
     @NotNull
     @Column(nullable = false, columnDefinition = "varchar(1) check(action_type in ('C', 'E', 'D'))")

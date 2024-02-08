@@ -17,11 +17,7 @@ public class Comment extends AbstractPersistable<Long>
 {
     @NotNull @NotEmpty
     @Column(length = 16192)
-    private  String text;
-
-    @NotBlank
-    @Column(length = 8, nullable = false, unique = true)
-    private String version;
+    private String text;
 
     @NotNull @Embedded
     private Action action;

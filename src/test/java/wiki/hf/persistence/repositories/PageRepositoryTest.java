@@ -26,7 +26,6 @@ class PageRepositoryTest
         page = Page.builder()
                    .name("Weapons")
                    .description("The Weapons of the game.")
-                   .version("0.1.0")
                    .action(action)
                    .build();
 
