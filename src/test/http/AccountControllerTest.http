@@ -1,11 +1,11 @@
 ### 1 | Get all accounts
 GET http://localhost:8080/api/account
 
-### 2 | Get accounts where fullName is like "ust"
-GET http://localhost:8080/api/account?fullName=UST
+### 2 | Get accounts with fullName
+GET http://localhost:8080/api/account?fullName=Louis%20Ferro
 
-### 3 | Get accounts where username is like "xim"
-GET http://localhost:8080/api/account?username=xiM
+### 3 | Get accounts with username
+GET http://localhost:8080/api/account?username=Louis
 
-### 4 | Get accounts where fullName is like "Max" and username is like "MaxiMust"
-GET http://localhost:8080/api/account?fullName=Max&username=MaxiMust
+### 4 | Get accounts with fullName and username
+GET http://localhost:8080/api/account?fullName=Niklas&username=2019
