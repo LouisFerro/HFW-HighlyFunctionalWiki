@@ -29,9 +29,6 @@ public class AccountService implements LikeFormat {
                        .orElseGet(repository::findAll));
     }
 
-
-
-
     public Account findByUsername(String username) {
         return repository.findByUsernameIgnoreCase(username);
     }
