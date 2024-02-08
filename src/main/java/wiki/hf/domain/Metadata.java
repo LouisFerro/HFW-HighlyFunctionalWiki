@@ -20,7 +20,6 @@ public abstract class Metadata extends AbstractPersistable<Long>
     @Column(length = 4048)
     private String description;
 
-
     @NotNull @Embedded
     private Action action;
 }

@@ -20,7 +20,7 @@ class AccountRepositoryTest
 
     Account account;
     @BeforeEach
-    void Setup()
+    void SetupAccount()
     {
         account = TestFixtures.account();
     }

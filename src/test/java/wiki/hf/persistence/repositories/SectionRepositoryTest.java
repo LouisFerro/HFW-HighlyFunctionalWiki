@@ -23,7 +23,7 @@ class SectionRepositoryTest {
     Section section;
 
     @BeforeEach
-    void SetUpSection() {
+    void SetupSection() {
         action = TestFixtures.action(TestFixtures.account());
         section = Section.builder()
                 .name("Basic weapons")
