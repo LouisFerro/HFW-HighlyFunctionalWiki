@@ -6,9 +6,24 @@ import java.time.LocalDateTime;
 
 public class TestFixtures {
 
+    public static Account Louisthemagic_Owner()
+    {
+        return account("Louis Ferro", "Louisthemagic", "password", AccountType.OWNER);
+    }
+
+    public static Account Niklas2019_Administrator()
+    {
+        return account("Niklas Hasenbacher", "Niklas2019", "password", AccountType.ADMINISTRATOR);
+    }
+
+    public static Account MaxMuster_Editor()
+    {
+        return account("Maximilian Mustermann", "MaxMuster", "password", AccountType.EDITOR);
+    }
+
     public static Account account()
     {
-          return account("Louis Ferro", "Louisthemagic", "password", AccountType.OWNER);
+          return account("fullName", "username", "password", AccountType.USER);
     }
 
     public static Account account(String fullName, String username, String password, AccountType accountType)
@@ -21,14 +36,29 @@ public class TestFixtures {
                       .build();
     }
 
-    public static Action action()
+    public static Action Year2023December20Hour12_Creation()
     {
         return action(account(), LocalDateTime.of(2023, 12, 20, 12, 0, 0), ActionType.CREATE);
     }
 
+    public static Action Year2023December20Hour12_Update()
+    {
+        return action(account(), LocalDateTime.of(2023, 12, 20, 12, 0, 0), ActionType.CREATE);
+    }
+
+    public static Action Year2023December20Hour12_Deletion()
+    {
+        return action(account(), LocalDateTime.of(2023, 12, 20, 12, 0, 0), ActionType.CREATE);
+    }
+
+    public static Action action()
+    {
+        return action(account(), LocalDateTime.of(1, 1, 1, 0, 0, 0), ActionType.CREATE);
+    }
+
     public static Action action(Account account)
     {
-        return action(account, LocalDateTime.of(2023, 12, 20, 12, 0, 0), ActionType.CREATE);
+        return action(account, LocalDateTime.of(1, 1, 1, 0, 0, 0), ActionType.CREATE);
     }
 
     public static Action action(Account account, LocalDateTime alteration, ActionType actionType)
