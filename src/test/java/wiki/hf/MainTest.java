@@ -20,7 +20,7 @@ public class MainTest {
         final int localPort = 65432;
         final int exposedPort = 5432;
 
-        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:15-bullseye"))
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"))
                                          .withCreateContainerCmdModifier(cmd -> {
                                              cmd.withName("4EHIF-POS-Postgres");
                                              cmd.withHostConfig(

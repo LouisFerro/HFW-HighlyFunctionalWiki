@@ -12,6 +12,6 @@ public class TestContainerConfiguration
     @Bean
     @ServiceConnection
     PostgreSQLContainer<?> postgresContainer() {
-        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:15-bullseye"));
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"));
     }
 }
