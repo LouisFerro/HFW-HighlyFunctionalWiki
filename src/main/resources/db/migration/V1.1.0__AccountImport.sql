@@ -25,5 +25,35 @@ values (
     'Niklas Hasenbacher',
     'Niklas2019',
     'Password',
-    'O'
+    'A'
+);
+
+insert into test.public.account (
+    id,
+    full_name,
+    username,
+    password,
+    account_type
+)
+values (
+    nextval('account_seq'),
+    'Maximilian Mustermann',
+    'MaxMuster',
+    'Password',
+    'E'
+);
+
+insert into test.public.account (
+    id,
+    full_name,
+    username,
+    password,
+    account_type
+)
+values (
+    nextval('account_seq'),
+    'Alan Turing',
+    'tuneIn',
+    'IGotEnigma',
+    'U'
 );
