@@ -1,29 +1,32 @@
 package wiki.hf.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import wiki.hf.domain.Account;
+import wiki.hf.foundation.LikeFormat;
 import wiki.hf.persistence.repositories.AccountRepository;
 
-import lombok.RequiredArgsConstructor;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+import java.util.*;
 
 @RequiredArgsConstructor
+@Log4j2
 
 @Service
 @Transactional(readOnly = true)
-public class AccountService {
+public class AccountService implements LikeFormat {
 
     private final AccountRepository repository;
 
-    public List<Account> findAll() {
-        return repository.findAll();
-    }
-
-    public Account findByFullName(String fullName) {
-        return repository.findByFullNameIgnoreCase(fullName);
+    public List<Account> findAllByName(Optional<String> name, Optional<String> username) {
+        return name.map(this::formatExpression)
+                   .map(repository::findAllByNameLikeIgnoreCase)
+                   .orElse(username.map(this::formatExpression)
+                                   .map(repository::findAllByUsernameLikeIgnoreCase)
+                                   .orElseGet(repository::findAll));
     }
 
     public Account findByUsername(String username) {
