@@ -7,7 +7,7 @@ create sequence section_seq start with 1 increment by 50;
 create table account
 (
     id           bigint                                                  not null,
-    full_name    varchar(265),
+    name         varchar(265),
     username     varchar(128)                                            not null unique,
     password     varchar(128)                                            not null,
     account_type varchar(1) check (account_type in ('U', 'E', 'A', 'O')) not null,

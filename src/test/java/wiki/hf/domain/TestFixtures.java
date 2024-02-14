@@ -1,35 +1,33 @@
 package wiki.hf.domain;
 
-import net.bytebuddy.asm.Advice;
-
 import java.time.LocalDateTime;
 
 public class TestFixtures {
 
     public static Account Louisthemagic_Owner()
     {
-        return account("Louis Ferro", "Louisthemagic", "password", AccountType.OWNER);
+        return account("Louis Ferro", "Louisthemagic", "Password", AccountType.OWNER);
     }
 
     public static Account Niklas2019_Administrator()
     {
-        return account("Niklas Hasenbacher", "Niklas2019", "password", AccountType.ADMINISTRATOR);
+        return account("Niklas Hasenbacher", "Niklas2019", "Password", AccountType.ADMINISTRATOR);
     }
 
     public static Account MaxMuster_Editor()
     {
-        return account("Maximilian Mustermann", "MaxMuster", "password", AccountType.EDITOR);
+        return account("Maximilian Mustermann", "MaxMuster", "Password", AccountType.EDITOR);
     }
 
     public static Account account()
     {
-          return account("fullName", "username", "password", AccountType.USER);
+          return account("Name", "Username", "Password", AccountType.USER);
     }
 
-    public static Account account(String fullName, String username, String password, AccountType accountType)
+    public static Account account(String name, String username, String password, AccountType accountType)
     {
         return Account.builder()
-                      .fullName(fullName)
+                      .name(name)
                       .username(username)
                       .password(password)
                       .accountType(accountType)

@@ -1,16 +1,59 @@
-insert into test.public.account
-(
+insert into test.public.account (
     id,
-    full_name,
+    name,
     username,
     password,
     account_type
 )
-values
-(
+values (
     nextval('account_seq'),
-    'Max Mustermann',
-    'MaxiMuster',
+    'Louis Ferro',
+    'Louisthemagic',
     'Password',
     'O'
+);
+
+insert into test.public.account (
+    id,
+    name,
+    username,
+    password,
+    account_type
+)
+values (
+    nextval('account_seq'),
+    'Niklas Hasenbacher',
+    'Niklas2019',
+    'Password',
+    'A'
+);
+
+insert into test.public.account (
+    id,
+    name,
+    username,
+    password,
+    account_type
+)
+values (
+    nextval('account_seq'),
+    'Maximilian Mustermann',
+    'MaxMuster',
+    'Password',
+    'E'
+);
+
+insert into test.public.account (
+    id,
+    name,
+    username,
+    password,
+    account_type
+)
+values (
+    nextval('account_seq'),
+    'Alan Turing',
+    'tuneIn',
+    'IGotEnigma',
+    'U'
 );

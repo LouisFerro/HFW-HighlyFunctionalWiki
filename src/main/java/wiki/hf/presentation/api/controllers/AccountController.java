@@ -1,29 +1,29 @@
 package wiki.hf.presentation.api.controllers;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import wiki.hf.presentation.api.dto.AccountDTO;
+import wiki.hf.presentation.api.dataTransferObjects.AccountDTO;
 import wiki.hf.service.*;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import java.util.*;
 
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/account")
 public class AccountController {
 
     private final AccountService service;
 
     @GetMapping
-    public HttpEntity<List<AccountDTO>> getAccounts() {
-        List<AccountDTO> accountDTO = service.findAll()
-                                             .stream()
-                                             .map(AccountDTO::new)
-                                             .toList();
+    public HttpEntity<List<AccountDTO>> getAccounts(@RequestParam Optional<String> name, @RequestParam Optional<String> username) {
+        List<AccountDTO> accountDTO = service.findAllByName(name, username)
+                .stream()
+                .map(AccountDTO::new)
+                .toList();
 
         return accountDTO.isEmpty() ? ResponseEntity.noContent().build()
                                     : ResponseEntity.ok(accountDTO);

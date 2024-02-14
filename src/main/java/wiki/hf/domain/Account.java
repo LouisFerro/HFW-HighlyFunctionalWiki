@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Account extends AbstractPersistable<Long>
 {
     @Column(length = 265)
-    private String fullName;
+    private String name;
 
     @NotBlank
     @Column(length = 128, nullable = false, unique = true)
