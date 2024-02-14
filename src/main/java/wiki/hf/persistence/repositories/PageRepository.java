@@ -10,8 +10,4 @@ import java.util.Optional;
 public interface PageRepository extends JpaRepository<Page, Long>
 {
     Optional<Page> findByName(String name);
-
-    /* TODO: Implement.
-    Optional<Page> findByAction(Action action);
-    */
 }
