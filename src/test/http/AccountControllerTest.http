@@ -2,10 +2,10 @@
 GET http://localhost:8080/api/account
 
 ### 2 | Get accounts with fullName
-GET http://localhost:8080/api/account?fullName=Louis%20Ferro
+GET http://localhost:8080/api/account?name=Louis%20Ferro
 
 ### 3 | Get accounts with username
 GET http://localhost:8080/api/account?username=Louis
 
 ### 4 | Get accounts with fullName and username
-GET http://localhost:8080/api/account?fullName=Niklas&username=2019
+GET http://localhost:8080/api/account?name=Niklas&username=2019
