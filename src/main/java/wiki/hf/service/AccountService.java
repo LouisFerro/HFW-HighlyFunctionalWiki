@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import wiki.hf.service.exceptions.AccountNoContentException;
+import wiki.hf.service.exceptions.AccountNotFoundException;
 
 import java.util.*;
 
@@ -29,11 +31,8 @@ public class AccountService implements LikeFormat {
                                    .orElseGet(repository::findAll));
     }
 
-    public Account findByUsername(String username) {
-        return repository.findByUsernameIgnoreCase(username);
-    }
-
     public Account findByUsernameAndPassword(String username, String password) {
-        return repository.findByUsernameAndPasswordIgnoreCase(username, password);
+        return repository.findByUsernameAndPasswordIgnoreCase(username, password)
+                         .orElseThrow(() -> AccountNoContentException.UsernameAndPassword(username, password));
     }
 }

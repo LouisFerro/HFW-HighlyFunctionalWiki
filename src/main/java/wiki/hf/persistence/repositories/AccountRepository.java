@@ -5,7 +5,9 @@ import wiki.hf.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
@@ -13,7 +15,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     List<Account> findAllByUsernameLikeIgnoreCase(String username);
 
-    Account findByUsernameIgnoreCase(String username);
-
-    Account findByUsernameAndPasswordIgnoreCase(String username, String password);
+    Optional<Account> findByUsernameAndPasswordIgnoreCase(String username, String password);
 }
