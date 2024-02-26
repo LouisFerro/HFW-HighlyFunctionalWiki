@@ -1,13 +1,11 @@
 package wiki.hf.persistence.repositories;
 
-import wiki.hf.domain.Account;
+import wiki.hf.domain.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {

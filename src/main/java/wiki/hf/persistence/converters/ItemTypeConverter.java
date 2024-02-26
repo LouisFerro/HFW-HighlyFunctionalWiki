@@ -1,10 +1,10 @@
 package wiki.hf.persistence.converters;
 
-import wiki.hf.domain.*;
 import static wiki.hf.domain.ItemType.*;
+import wiki.hf.domain.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
 
 import jakarta.persistence.*;
-import wiki.hf.persistence.exceptions.DataQualityException;
 
 import java.util.*;
 

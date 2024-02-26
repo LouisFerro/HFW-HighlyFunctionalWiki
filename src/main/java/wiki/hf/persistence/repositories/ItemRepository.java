@@ -1,8 +1,9 @@
 package wiki.hf.persistence.repositories;
 
+import wiki.hf.domain.*;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
-import wiki.hf.domain.Item;
 
 import java.util.Optional;
 
