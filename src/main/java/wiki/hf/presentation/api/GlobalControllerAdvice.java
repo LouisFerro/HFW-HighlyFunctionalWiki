@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
 @ControllerAdvice
-public class ControllerExceptionHandler {
+public class GlobalControllerAdvice {
 
     @ExceptionHandler(BaseException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

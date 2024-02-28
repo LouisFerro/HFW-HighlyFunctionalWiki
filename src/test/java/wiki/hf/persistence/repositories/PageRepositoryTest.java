@@ -22,7 +22,7 @@ class PageRepositoryTest
 
     @BeforeEach
     void SetupPage() {
-        action = TestFixtures.action(TestFixtures.account());
+        action = TestFixtures.Action(TestFixtures.Account());
         page = Page.builder()
                    .name("Weapons")
                    .description("The Weapons of the game.")

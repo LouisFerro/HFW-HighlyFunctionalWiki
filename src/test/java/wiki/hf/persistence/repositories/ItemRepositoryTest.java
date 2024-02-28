@@ -24,7 +24,7 @@ class ItemRepositoryTest {
 
     @BeforeEach
     void SetupItem() {
-        action = TestFixtures.action(TestFixtures.account());
+        action = TestFixtures.Action(TestFixtures.Account());
         sword = Item.builder()
                 .name("Sword")
                 .description("A sword made of hardened steel")

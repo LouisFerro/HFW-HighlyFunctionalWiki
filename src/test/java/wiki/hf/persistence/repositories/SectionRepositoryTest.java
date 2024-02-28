@@ -24,7 +24,7 @@ class SectionRepositoryTest {
 
     @BeforeEach
     void SetupSection() {
-        action = TestFixtures.action(TestFixtures.account());
+        action = TestFixtures.Action(TestFixtures.Account());
         section = Section.builder()
                 .name("Basic weapons")
                 .description("All the weapons that are unlocked at the start of the game")

@@ -36,12 +36,12 @@ class AccountServiceTest {
         Account Louisthemagic = Louisthemagic_Owner();
         Account Niklas2019 = Niklas2019_Administrator();
         Account MaxMuster = MaxMuster_Editor();
-        Account account = account();
+        Account Account = Account();
 
-        when(repository.findAll()).thenReturn(List.of(Louisthemagic, Niklas2019, MaxMuster, account));
+        when(repository.findAll()).thenReturn(List.of(Louisthemagic, Niklas2019, MaxMuster, Account));
 
-        assumeThat(service.findAllByName(name, username)).containsExactly(Louisthemagic, Niklas2019, MaxMuster, account);
-        assumeThat(service.findAllByName(name, username)).containsExactlyInAnyOrder(MaxMuster, Niklas2019, account, Louisthemagic);
+        assumeThat(service.findAllByName(name, username)).containsExactly(Louisthemagic, Niklas2019, MaxMuster, Account);
+        assumeThat(service.findAllByName(name, username)).containsExactlyInAnyOrder(MaxMuster, Niklas2019, Account, Louisthemagic);
         verify(repository, times(2)).findAll();
         verifyNoMoreInteractions(repository);
     }

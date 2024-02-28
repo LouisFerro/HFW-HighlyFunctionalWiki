@@ -22,7 +22,7 @@ class AccountRepositoryTest
     @BeforeEach
     void SetupAccount()
     {
-        account = TestFixtures.account();
+        account = TestFixtures.Account();
     }
 
     @Test

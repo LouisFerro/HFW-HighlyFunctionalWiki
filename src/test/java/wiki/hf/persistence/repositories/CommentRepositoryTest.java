@@ -22,7 +22,7 @@ class CommentRepositoryTest {
 
     @BeforeEach
     void SetupComment() {
-        action = TestFixtures.action(TestFixtures.account());
+        action = TestFixtures.Action(TestFixtures.Account());
         comment = Comment.builder()
                 .text("I like this page!")
                 .action(action)
