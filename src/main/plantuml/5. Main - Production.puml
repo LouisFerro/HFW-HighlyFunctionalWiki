@@ -66,7 +66,8 @@ entity Content <<(V, #229988)>>
 entity Comment
 {
     - String: Text
-    - Page: Page
+    - Item: Item
+    - Action: Action
 }
 
 Account .up. AccountType
