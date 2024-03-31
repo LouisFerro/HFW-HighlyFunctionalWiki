@@ -2,7 +2,7 @@ package wiki.hf.domain;
 
 public enum AccountType
 {
-    USER,
+    READER,
     EDITOR,
     ADMINISTRATOR,
     OWNER

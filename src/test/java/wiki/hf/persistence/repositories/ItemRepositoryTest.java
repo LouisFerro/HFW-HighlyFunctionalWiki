@@ -32,16 +32,6 @@ class ItemRepositoryTest {
                 .content(Content.builder()
                         .text("The sword is the most common weapon in the game.")
                         .build())
-                .section(Section.builder()
-                        .name("Basic weapons.")
-                        .description("All the weapons that are unlocked at the start of the game.")
-                        .action(action)
-                        .page(Page.builder()
-                                .name("Weapons")
-                                .description("The Weapons of the game.")
-                                .action(action)
-                                .build())
-                        .build())
                 .itemType(ItemType.TEXT)
                 .build();
 
@@ -54,17 +44,4 @@ class ItemRepositoryTest {
         assertThat(repository.save(sword).getName()).isEqualTo("Sword");
         assertThat(repository.save(sword).getId()).isNotNull();
     }
-
-    @Test
-    void FindItemByName() {
-        assertThat(repository.findByName("Sword")).isPresent();
-    }
-
-    /*
-    @Test
-    void FindItemByAction()
-    {
-
-    }
-    */
 }

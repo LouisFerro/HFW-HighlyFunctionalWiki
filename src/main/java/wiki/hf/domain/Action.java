@@ -19,11 +19,11 @@ public class Action
     private Account account;
 
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private LocalDateTime alteration;
 
     @NotNull
-    @Column(nullable = false, columnDefinition = "varchar(1) check(action_type in ('C', 'E', 'D'))")
+    @Column(nullable = false, columnDefinition = "varchar(256) check (action_type in ('CREATION', 'UPDATE', 'DELETION'))")
     private ActionType actionType;
 }
 

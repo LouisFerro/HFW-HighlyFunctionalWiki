@@ -19,20 +19,24 @@ class ItemTypeConverterTest
     @Test
     void convertValidAttributeToColumn()
     {
-        assertThat(converter.convertToDatabaseColumn(ItemType.LIST)).isEqualTo("L");
-        assertThat(converter.convertToDatabaseColumn(ItemType.TEXT)).isEqualTo("T");
-        assertThat(converter.convertToDatabaseColumn(ItemType.IMAGE)).isEqualTo("I");
-        assertThat(converter.convertToDatabaseColumn(ItemType.VIDEO)).isEqualTo("V");
+        assertThat(converter.convertToDatabaseColumn(ItemType.PAGE)).isEqualTo("PAGE");
+        assertThat(converter.convertToDatabaseColumn(ItemType.SECTION)).isEqualTo("SECTION");
+        assertThat(converter.convertToDatabaseColumn(ItemType.LIST)).isEqualTo("LIST");
+        assertThat(converter.convertToDatabaseColumn(ItemType.TEXT)).isEqualTo("TEXT");
+        assertThat(converter.convertToDatabaseColumn(ItemType.IMAGE)).isEqualTo("IMAGE");
+        assertThat(converter.convertToDatabaseColumn(ItemType.VIDEO)).isEqualTo("VIDEO");
         assertThat(converter.convertToDatabaseColumn(null)).isNull();
     }
 
     @Test
     void convertValidColumnToAttribute()
     {
-        assertThat(converter.convertToEntityAttribute("L")).isEqualTo(ItemType.LIST);
-        assertThat(converter.convertToEntityAttribute("T")).isEqualTo(ItemType.TEXT);
-        assertThat(converter.convertToEntityAttribute("I")).isEqualTo(ItemType.IMAGE);
-        assertThat(converter.convertToEntityAttribute("V")).isEqualTo(ItemType.VIDEO);
+        assertThat(converter.convertToEntityAttribute("PAGE")).isEqualTo(ItemType.PAGE);
+        assertThat(converter.convertToEntityAttribute("SECTION")).isEqualTo(ItemType.SECTION);
+        assertThat(converter.convertToEntityAttribute("LIST")).isEqualTo(ItemType.LIST);
+        assertThat(converter.convertToEntityAttribute("TEXT")).isEqualTo(ItemType.TEXT);
+        assertThat(converter.convertToEntityAttribute("IMAGE")).isEqualTo(ItemType.IMAGE);
+        assertThat(converter.convertToEntityAttribute("VIDEO")).isEqualTo(ItemType.VIDEO);
         assertThat(converter.convertToEntityAttribute(null)).isNull();
     }
 

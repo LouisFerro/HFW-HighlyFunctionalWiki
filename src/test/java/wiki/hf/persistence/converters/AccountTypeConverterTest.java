@@ -19,20 +19,20 @@ class AccountTypeConverterTest
     @Test
     void convertValidAttributeToColumn()
     {
-        assertThat(converter.convertToDatabaseColumn(AccountType.USER)).isEqualTo("U");
-        assertThat(converter.convertToDatabaseColumn(AccountType.EDITOR)).isEqualTo("E");
-        assertThat(converter.convertToDatabaseColumn(AccountType.ADMINISTRATOR)).isEqualTo("A");
-        assertThat(converter.convertToDatabaseColumn(AccountType.OWNER)).isEqualTo("O");
+        assertThat(converter.convertToDatabaseColumn(AccountType.READER)).isEqualTo("READER");
+        assertThat(converter.convertToDatabaseColumn(AccountType.EDITOR)).isEqualTo("EDITOR");
+        assertThat(converter.convertToDatabaseColumn(AccountType.ADMINISTRATOR)).isEqualTo("ADMINISTRATOR");
+        assertThat(converter.convertToDatabaseColumn(AccountType.OWNER)).isEqualTo("OWNER");
         assertThat(converter.convertToDatabaseColumn(null)).isNull();
     }
 
     @Test
     void convertValidColumnToAttribute()
     {
-        assertThat(converter.convertToEntityAttribute("U")).isEqualTo(AccountType.USER);
-        assertThat(converter.convertToEntityAttribute("E")).isEqualTo(AccountType.EDITOR);
-        assertThat(converter.convertToEntityAttribute("A")).isEqualTo(AccountType.ADMINISTRATOR);
-        assertThat(converter.convertToEntityAttribute("O")).isEqualTo(AccountType.OWNER);
+        assertThat(converter.convertToEntityAttribute("READER")).isEqualTo(AccountType.READER);
+        assertThat(converter.convertToEntityAttribute("EDITOR")).isEqualTo(AccountType.EDITOR);
+        assertThat(converter.convertToEntityAttribute("ADMINISTRATOR")).isEqualTo(AccountType.ADMINISTRATOR);
+        assertThat(converter.convertToEntityAttribute("OWNER")).isEqualTo(AccountType.OWNER);
         assertThat(converter.convertToEntityAttribute(null)).isNull();
     }
 

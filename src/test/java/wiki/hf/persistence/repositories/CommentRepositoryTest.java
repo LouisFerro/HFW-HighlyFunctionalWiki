@@ -26,10 +26,11 @@ class CommentRepositoryTest {
         comment = Comment.builder()
                 .text("I like this page!")
                 .action(action)
-                .page(Page.builder()
+                .page(Item.builder()
                         .name("Weapons")
                         .description("The Weapons of the game")
                         .action(action)
+                        .itemType(ItemType.PAGE)
                         .build())
                 .build();
 
@@ -42,12 +43,4 @@ class CommentRepositoryTest {
         assertThat(repository.save(comment).getText()).isEqualTo("I like this page!");
         assertThat(repository.save(comment).getId()).isNotNull();
     }
-
-    /*
-    @Test
-    void FindSectionByAction()
-    {
-
-    }
-    */
 }

@@ -9,9 +9,9 @@ import org.springframework.http.*;
 public class GlobalControllerAdvice {
 
     @ExceptionHandler(BaseException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public HttpEntity<ProblemDetail> handleNotFoundException(BaseException exception) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public HttpEntity<ProblemDetail> handleNoContentException(BaseException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NO_CONTENT, exception.getMessage());
         problemDetail.setProperty("key", exception.getKey());
 
         return ResponseEntity.of(problemDetail).build();

@@ -2,7 +2,7 @@ package wiki.hf.domain;
 
 public enum ActionType
 {
-    CREATE,
+    CREATION,
     UPDATE,
-    DELETE
+    DELETION
 }

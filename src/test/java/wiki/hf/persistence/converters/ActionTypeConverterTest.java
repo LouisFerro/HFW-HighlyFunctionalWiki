@@ -19,18 +19,18 @@ class ActionTypeConverterTest
     @Test
     void convertValidAttributeToColumn()
     {
-        assertThat(converter.convertToDatabaseColumn(ActionType.CREATE)).isEqualTo("C");
-        assertThat(converter.convertToDatabaseColumn(ActionType.UPDATE)).isEqualTo("U");
-        assertThat(converter.convertToDatabaseColumn(ActionType.DELETE)).isEqualTo("D");
+        assertThat(converter.convertToDatabaseColumn(ActionType.CREATION)).isEqualTo("CREATION");
+        assertThat(converter.convertToDatabaseColumn(ActionType.UPDATE)).isEqualTo("UPDATE");
+        assertThat(converter.convertToDatabaseColumn(ActionType.DELETION)).isEqualTo("DELETION");
         assertThat(converter.convertToDatabaseColumn(null)).isNull();
     }
 
     @Test
     void convertValidColumnToAttribute()
     {
-        assertThat(converter.convertToEntityAttribute("C")).isEqualTo(ActionType.CREATE);
-        assertThat(converter.convertToEntityAttribute("U")).isEqualTo(ActionType.UPDATE);
-        assertThat(converter.convertToEntityAttribute("D")).isEqualTo(ActionType.DELETE);
+        assertThat(converter.convertToEntityAttribute("CREATION")).isEqualTo(ActionType.CREATION);
+        assertThat(converter.convertToEntityAttribute("UPDATE")).isEqualTo(ActionType.UPDATE);
+        assertThat(converter.convertToEntityAttribute("DELETION")).isEqualTo(ActionType.DELETION);
         assertThat(converter.convertToEntityAttribute(null)).isNull();
     }
 

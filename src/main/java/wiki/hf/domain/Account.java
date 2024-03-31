@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name = "Account")
 public class Account extends AbstractPersistable<Long>
 {
-    @Column(length = 265)
+    @Column(length = 256)
     private String name;
 
     @NotBlank
@@ -27,7 +27,7 @@ public class Account extends AbstractPersistable<Long>
     private String password;
 
     @NotNull
-    @Column(nullable = false, columnDefinition = "varchar(1) check(account_type in ('U', 'E', 'A', 'O'))")
+    @Column(nullable = false, columnDefinition = "varchar(256) check (account_type in ('OWNER', 'ADMINISTRATOR', 'EDITOR', 'READER'))")
     private AccountType accountType;
 
     //TODO: Implement recursive relation of actions for historiszation of accounts.

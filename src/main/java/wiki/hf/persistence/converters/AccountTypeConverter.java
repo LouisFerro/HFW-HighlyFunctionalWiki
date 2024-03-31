@@ -12,27 +12,27 @@ import java.util.*;
 public class AccountTypeConverter implements AttributeConverter<AccountType, String>
 {
     @Override
-    public String convertToDatabaseColumn(AccountType accountType)
-    {
+    public String convertToDatabaseColumn(AccountType accountType) {
         return Optional.ofNullable(accountType)
-                .map(type -> switch (type) {
-                    case USER -> "U";
-                    case EDITOR -> "E";
-                    case ADMINISTRATOR -> "A";
-                    case OWNER -> "O";
-                }).orElse(null);
+                       .map(type -> switch (type) {
+                           case OWNER -> "OWNER";
+                           case ADMINISTRATOR -> "ADMINISTRATOR";
+                           case EDITOR -> "EDITOR";
+                           case READER -> "READER";
+                       })
+                       .orElse(null);
     }
 
     @Override
-    public AccountType convertToEntityAttribute(String value)
-    {
+    public AccountType convertToEntityAttribute(String value) {
         return Optional.ofNullable(value)
-                .map(v -> switch (v) {
-                    case "U" -> USER;
-                    case "E" -> EDITOR;
-                    case "A" -> ADMINISTRATOR;
-                    case "O" -> OWNER;
-                    default -> throw DataQualityException.invalidValue(v, AccountType.class);
-                }).orElse(null);
+                       .map(type -> switch (type) {
+                           case "OWNER" -> OWNER;
+                           case "ADMINISTRATOR" -> ADMINISTRATOR;
+                           case "EDITOR" -> EDITOR;
+                           case "READER" -> READER;
+                           default -> throw DataQualityException.invalidValue(type, AccountType.class);
+                       })
+                       .orElse(null);
     }
 }

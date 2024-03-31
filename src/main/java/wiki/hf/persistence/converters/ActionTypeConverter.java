@@ -12,25 +12,25 @@ import java.util.*;
 public class ActionTypeConverter implements AttributeConverter<ActionType, String>
 {
     @Override
-    public String convertToDatabaseColumn(ActionType ActionType)
-    {
+    public String convertToDatabaseColumn(ActionType ActionType) {
         return Optional.ofNullable(ActionType)
-                .map(type -> switch (type) {
-                    case CREATE -> "C";
-                    case UPDATE -> "U";
-                    case DELETE -> "D";
-                }).orElse(null);
+                       .map(type -> switch (type) {
+                           case CREATION -> "CREATION";
+                           case UPDATE -> "UPDATE";
+                           case DELETION -> "DELETION";
+                       })
+                       .orElse(null);
     }
 
     @Override
-    public ActionType convertToEntityAttribute(String value)
-    {
+    public ActionType convertToEntityAttribute(String value) {
         return Optional.ofNullable(value)
-                .map(v -> switch (v) {
-                    case "C" -> CREATE;
-                    case "U" -> UPDATE;
-                    case "D" -> DELETE;
-                    default -> throw DataQualityException.invalidValue(v, ActionType.class);
-                }).orElse(null);
+                       .map(type -> switch (type) {
+                           case "CREATION" -> CREATION;
+                           case "UPDATE" -> UPDATE;
+                           case "DELETION" -> DELETION;
+                           default -> throw DataQualityException.invalidValue(type, ActionType.class);
+                       })
+                       .orElse(null);
     }
 }

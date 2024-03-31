@@ -11,27 +11,28 @@ import lombok.*;
 @Table(name = "Item")
 public class Item extends Metadata
 {
+    @ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn( foreignKey = @ForeignKey( foreignKeyDefinition = "itemPage" ))
+    private Item page;
+
+    @ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn( foreignKey = @ForeignKey( foreignKeyDefinition = "itemParent" ))
+    private Item parent;
+
+    @NotNull
+    @Column( nullable = false, columnDefinition = "varchar(256) check (item_type in ('PAGE', 'SECTION', 'LIST', 'VIDEO', 'IMAGE', 'TEXT'))" )
+    private ItemType itemType;
+
     @NotNull @Embedded
     private Content content;
 
-    @NotNull
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "itemSection"))
-    private Section section;
-
-    @NotNull
-    @Column(nullable = false, columnDefinition = "varchar(1) check(item_type in ('L', 'T', 'I', 'V'))")
-    private ItemType itemType;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "parentItem"))
-    private Item item;
     @Builder
-    public Item(String name, String description, Action action, ItemType itemType, Section section, Content content)
+    public Item(String name, String description, Action action, Item page, Item parent, ItemType itemType, Content content)
     {
         super(name, description, action);
+        this.page = page;
+        this.parent = parent;
         this.itemType = itemType;
-        this.section = section;
         this.content = content;
     }
 }

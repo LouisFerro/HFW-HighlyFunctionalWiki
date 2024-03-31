@@ -24,6 +24,6 @@ public class Comment extends AbstractPersistable<Long>
 
     @NotNull
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "pageComment"))
-    private Page page;
+    @JoinColumn(foreignKey = @ForeignKey(foreignKeyDefinition = "commentPage"))
+    private Item page;
 }

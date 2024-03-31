@@ -13,6 +13,7 @@ import lombok.*;
 public class Content
 {
     @NotBlank
+    @Column(length = 16192)
     private String text;
 
     @Lob

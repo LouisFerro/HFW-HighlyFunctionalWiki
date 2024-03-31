@@ -12,27 +12,29 @@ import java.util.*;
 public class ItemTypeConverter implements AttributeConverter<ItemType, String>
 {
     @Override
-    public String convertToDatabaseColumn(ItemType itemType)
-    {
+    public String convertToDatabaseColumn(ItemType itemType) {
         return Optional.ofNullable(itemType)
                        .map(type -> switch (type) {
-                            case LIST -> "L";
-                            case TEXT -> "T";
-                            case IMAGE -> "I";
-                            case VIDEO -> "V";
+                            case PAGE -> "PAGE";
+                            case SECTION -> "SECTION";
+                            case LIST -> "LIST";
+                            case VIDEO -> "VIDEO";
+                            case IMAGE -> "IMAGE";
+                            case TEXT -> "TEXT";
                        }).orElse(null);
     }
 
     @Override
-    public ItemType convertToEntityAttribute(String value)
-    {
+    public ItemType convertToEntityAttribute(String value) {
         return Optional.ofNullable(value)
-                       .map(v -> switch (v) {
-                           case "L" -> LIST;
-                           case "T" -> TEXT;
-                           case "I" -> IMAGE;
-                           case "V" -> VIDEO;
-                           default -> throw DataQualityException.invalidValue(v, ItemType.class);
+                       .map(type -> switch (type) {
+                            case "PAGE" -> PAGE;
+                            case "SECTION" -> SECTION;
+                            case "LIST" -> LIST;
+                            case "IMAGE" -> IMAGE;
+                            case "VIDEO" -> VIDEO;
+                            case "TEXT" -> TEXT;
+                            default -> throw DataQualityException.invalidValue(type, ItemType.class);
                        }).orElse(null);
     }
 }

@@ -39,31 +39,22 @@ abstract class Metadata
     - Action: Action
 }
 
-entity Page
-{
-
-}
-
-entity Section
-{
-    - Page: Page
-    - Section: Section
-}
 
 entity Item
 {
     - Content: Content
-    - Section: Section
     - Item: Item
     - Type: ItemType
 }
 
 enum ItemType
 {
+    PAGE
+    SECTION
     LIST
-    TEXT
-    IMAGE
     VIDEO
+    IMAGE
+    TEXT
 }
 
 entity Content <<(V, #229988)>>
@@ -91,12 +82,8 @@ Comment -right-* Page
 
 Page -up-|> Metadata
 
-Section -up-|> Metadata
-Section -left-* Page
-Section -up-> Section
-
 Item -left-|> Metadata
-Item -down-* Section
+Item -down-* Page
 Item -right-> Content
 Item .up. ItemType
 Item -up-> Item
