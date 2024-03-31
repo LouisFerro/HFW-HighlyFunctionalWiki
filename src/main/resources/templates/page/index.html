@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${page.name}"></title>
+</head>
+<body>
+    <h1 th:text="${page.name}"></h1>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        let branches = /*[[${items}]]*/ 'default';
+
+        function clean(branches) {
+            if (Array.isArray(branches)) branches.forEach(item => clean(item))
+            else if (typeof branches === 'object' && branches !== null) {
+                Object.keys(branches).forEach(key => {
+                    if (key === 'page') { delete branches[key]; }
+                    else { clean(branches[key]); }
+
+                    if (key === 'action') { delete branches[key]; }
+                    else { clean(branches[key]); }
+                });
+            }
+        }
+
+        function getLevel (branch) {
+            let level = 1;
+            let parent = branch.parent;
+
+            while (parent !== null && parent.id !== 1) {
+                level++;
+                parent = parent.parent;
+            }
+
+            return level;
+        }
+
+        function print() {
+            // clean(branches);
+
+            branches.forEach(branch => {
+                const level = getLevel(branch);
+                const headingLevel = level > 5 ? "h6" : "h" + (level + 1);
+
+                let element = {
+                    parent: document.getElementById(branch.parent.id),
+                    container: null,
+                    subContainer: null,
+                    headline: null,
+                    content: null
+                }
+
+                console.log(branch);
+
+                switch (branch.itemType) {
+                    case('SECTION'):
+                        if ( element.parent === null || element.parent.tagName !== 'UL') {
+                            element.container = document.createElement("div");
+
+                            element.headline = document.createElement(headingLevel);
+                            element.headline.innerHTML = branch.name;
+
+                            element.container.setAttribute("class", "section");
+                            element.container.appendChild(element.headline);
+
+                        } else {
+                            element.container = document.createElement("li")
+                            element.container.innerHTML = branch.content.text;
+                        }
+
+                        element.container.setAttribute("id", branch.id);
+
+                        element.parent ? element.parent.appendChild(element.container)
+                                       : document.body.appendChild(element.container);
+
+                        break;
+                    case('LIST'):
+                        if (element.parent.tagName === 'UL') {
+                            element.container = document.createElement("li");
+                            element.subContainer = document.createElement("ul");
+
+                            element.container.innerHTML = branch.content.text;
+
+                            element.subContainer.setAttribute("id", branch.id);
+                            element.container.appendChild(element.subContainer);
+
+                        } else {
+                            element.container = document.createElement("div");
+                            element.subContainer = document.createElement("ul");
+
+                            element.headline = document.createElement(headingLevel);
+                            element.headline.innerHTML = branch.name;
+
+                            element.subContainer.setAttribute("id", branch.id);
+
+                            element.container.appendChild(element.headline);
+                            element.container.appendChild(element.subContainer);
+                        }
+
+                        element.parent.appendChild(element.container);
+                        break;
+
+                    case('TEXT'):
+                        element.content = document.createElement("p");
+                        element.content.innerHTML = branch.content.text;
+
+                        element.parent.appendChild(element.content);
+
+                        break;
+
+                    case('IMAGE'): break;
+                    case('VIDEO'): break;
+                }
+            });
+        }
+
+        print();
+
+        /*]]>*/
+    </script>
+</body>
+</html>

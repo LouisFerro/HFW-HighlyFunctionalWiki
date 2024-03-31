@@ -11,8 +11,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import org.junit.jupiter.api.*;
 
-import java.time.LocalDateTime;
-
 @DataJpaTest
 @Import(TestContainerConfiguration.class)
 class ItemRepositoryTest {
