@@ -77,14 +77,11 @@ Action .up. ActionType
 
 Metadata -left-> Action
 
-Comment -up-> Action
-Comment -right-* Page
-
-Page -up-|> Metadata
+Comment -down-> Action
+Comment -down-* Item
 
 Item -left-|> Metadata
-Item -down-* Page
-Item -right-> Content
+Item -up-> Content
 Item .up. ItemType
 Item -up-> Item
 
