@@ -4,12 +4,12 @@ import lombok.*;
 
 @Getter
 public abstract class BaseException extends RuntimeException {
-    protected Object key;
     protected Class model;
+    protected Object object;
 
-    public BaseException(Class model, String detail, Object key) {
+    public BaseException(Class model, String detail, Object object) {
         super(detail);
         this.model = model;
-        this.key = key;
+        this.object = object;
     }
 }

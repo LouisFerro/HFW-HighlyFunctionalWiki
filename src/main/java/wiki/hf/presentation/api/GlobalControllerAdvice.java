@@ -12,7 +12,7 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public HttpEntity<ProblemDetail> handleNoContentException(BaseException exception) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NO_CONTENT, exception.getMessage());
-        problemDetail.setProperty("key", exception.getKey());
+        problemDetail.setProperty("object", exception.getObject());
 
         return ResponseEntity.of(problemDetail).build();
     }
