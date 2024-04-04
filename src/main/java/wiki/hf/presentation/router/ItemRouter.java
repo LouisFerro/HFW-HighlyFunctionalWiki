@@ -13,6 +13,7 @@ import lombok.extern.log4j.*;
 import java.util.*;
 
 @RequiredArgsConstructor
+
 @Log4j2
 @Controller
 @RequestMapping
@@ -21,7 +22,7 @@ public class ItemRouter {
     private final ItemService itemService;
 
     @GetMapping("/{name}")
-    private String getPage(Model model, @PathVariable String name) {
+    private String page(Model model, @PathVariable String name) {
         log.info("Loading page '{}'", name);
 
         Optional<Item> page = itemService.findPageByName(name);

@@ -6,7 +6,7 @@ create table account
 (
     id           bigint                                                                              not null,
     password     varchar(128)                                                                        not null,
-    username     varchar(128)                                                                        not null,
+    username     varchar(128)                                                                        not null unique,
     name         varchar(256),
     account_type varchar(256) check (account_type in ('OWNER', 'ADMINISTRATOR', 'EDITOR', 'READER')) not null,
     primary key (id)
@@ -22,7 +22,7 @@ create table item
     text        varchar(16192),
     image       oid,
     item_type   varchar(256) check (item_type in ('PAGE', 'SECTION', 'LIST', 'VIDEO', 'IMAGE', 'TEXT')) not null,
-    account_id  bigint                                                                                  not null,
+    account_id  bigint,
     alteration  timestamp(6)                                                                            not null,
     action_type varchar(256) check (action_type in ('CREATION', 'EDIT', 'DELETION'))                    not null,
     primary key (id)
@@ -39,9 +39,9 @@ create table comment
     primary key (id)
 );
 
-alter table if exists comment add constraint commentAccount foreign key (account_id) references account;
-alter table if exists comment add constraint commentPage foreign key (account_id) references account;
+alter table if exists comment add constraint commentAccount foreign key (account_id) references account on delete cascade;
+alter table if exists comment add constraint commentPage foreign key (page_id) references account;
 
-alter table if exists item add constraint itemAccount foreign key (account_id) references account;
+alter table if exists item add constraint itemAccount foreign key (account_id) references account on delete cascade;
 alter table if exists item add constraint itemPage foreign key (page_id) references item;
 alter table if exists item add constraint itemParent foreign key (parent_id) references item;

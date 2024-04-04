@@ -11,19 +11,6 @@
 
         let branches = /*[[${items}]]*/ 'default';
 
-        function clean(branches) {
-            if (Array.isArray(branches)) branches.forEach(item => clean(item))
-            else if (typeof branches === 'object' && branches !== null) {
-                Object.keys(branches).forEach(key => {
-                    if (key === 'page') { delete branches[key]; }
-                    else { clean(branches[key]); }
-
-                    if (key === 'action') { delete branches[key]; }
-                    else { clean(branches[key]); }
-                });
-            }
-        }
-
         function getLevel (branch) {
             let level = 1;
             let parent = branch.parent;
@@ -37,8 +24,6 @@
         }
 
         function print() {
-            // clean(branches);
-
             branches.forEach(branch => {
                 const level = getLevel(branch);
                 const headingLevel = level > 5 ? "h6" : "h" + (level + 1);

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+    <main class="container">
+        <h1>Account Management</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Identification</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:id="*{id}" th:each="account, accountStatus : ${accounts}" th:object="${account}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{username}"></td>
+                    <td th:text="*{password}"></td>
+                    <td th:text="*{accountType}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <div id="popupContainer">
+        <div id="popup">
+            <div id="editMenu">
+                <form>
+                    <h2>Edit Account</h2>
+                    <div id="inputs">
+                        <p>Identification:</p><input id="id" type="number"/>
+                        <p>Name:</p><input id="name" type="text"/>
+                        <p>Username:</p><input id="username" type="text"/>
+                        <p>Password:</p><input id="password" type="text"/>
+                        <p class="passwordRepeat">Password:</p><input id="passwordRepeat" class="passwordRepeat" type="text"/>
+                        <p>Role:</p><input id="role"/>
+                    </div>
+                    <div id="buttons">
+                        <button id="delete">Delete Account</button>
+                        <button id="save">Save Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        const accounts = /*[[${accounts}]]*/ 'default';
+
+        accounts.forEach((account) => {
+            const row = document.getElementById(account.id);
+
+            row.querySelectorAll('*').forEach((item) => {
+                item.addEventListener('click', () => { editAccount(account); });
+            });
+        });
+
+        function controlField(state) {
+            const style = state ? 'block' : 'none';
+
+            document.querySelectorAll('.passwordRepeat').forEach((element) => {
+                element.style.display = style;
+            });
+        }
+
+        const popupContainer = document.getElementById('popupContainer');
+
+        function editAccount(account) {
+            const oldPassword = account.password;
+
+            document.getElementById('id').value = account.id;
+            document.getElementById('name').value = account.name;
+            document.getElementById('username').value = account.username;
+            document.getElementById('password').value = account.password;
+            document.getElementById('role').value = account.accountType;
+
+            const passwordInput = document.getElementById('password');
+
+            passwordInput.addEventListener('focus', () => { controlField(true); });
+            passwordInput.addEventListener('blur', () => {
+                passwordInput.value === oldPassword ? controlField(false) : controlField(true);
+            });
+
+            document.getElementById('delete').addEventListener('click', () => { deleteAccount(account.id); });
+            document.getElementById('save').addEventListener('click', () => {
+                const password = document.getElementById('password');
+                const passwordRepeat = document.getElementById('passwordRepeat');
+
+                if (passwordRepeat.style.display === 'none' || password.value === passwordRepeat.value) {
+                    account.password = password.value;
+                    saveAccount(account);
+                }
+                else { alert('The passwords do not match!'); } // TODO: Implement proper error messages.
+            });
+
+            popupContainer.style.display = 'flex';
+        }
+
+        popupContainer.addEventListener('click', (event) => {
+            if (event.target === popupContainer) { popupContainer.style.display = 'none'; }
+        });
+
+        async function deleteAccount(id) {
+            const password = window.prompt("Authorize this action by entering the password for this account:");
+
+            await fetch(`/account/delete/${id}`, {
+                method: 'delete',
+                headers: { 'Content-Type': 'application/json' },
+                body: password
+            })
+
+            const error = /*[[${error}]]*/ 'default';
+            if (error) { window.alert("The entered password is incorrect. Authorization failed."); }
+            else { window.location.reload(); }
+        }
+
+        async function saveAccount(account) {
+            console.log(account);
+
+            await fetch('/account/update', {
+                method: 'put',
+                headers: { 'Content-Type': 'application/json' ,
+                           'Accept': 'application/json'},
+                body: JSON.stringify(account)
+            }).then(() => { /* window.location.reload(); */ });
+        }
+
+        /*
+        window.addEventListener('beforeunload', async () => {
+            await new Promise(r => setTimeout(r, 10000));
+        });
+        */
+
+        /*]]>*/
+    </script>
+
+    <style>
+        h1 { margin: 2.5rem 0; }
+        tr td { cursor: pointer; }
+
+        #popupContainer {
+            display: none;
+            position: fixed;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100%;
+
+            top: 0;
+
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        #editMenu {
+            position: relative;
+
+            padding: 2.5rem 4rem;
+
+            border: 0.125rem solid black;
+            border-radius: 2rem;
+
+            z-index: 3;
+
+            background-color: white;
+        }
+
+        h2 { text-align: center; }
+
+        #inputs {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            row-gap: 1.5rem;
+
+            align-items: center;
+            width: 30rem;
+
+            margin: 4rem 0;
+        }
+
+        form p { font-size: 1.25rem; height: 100%; margin: 0; }
+        form input {
+            border: 0.125rem solid #ccc;
+
+            border-radius: 1rem;
+
+            font-size: 1.25rem;
+
+            text-align: center;
+
+            width: 100%;
+        }
+
+        .passwordRepeat { display: none; }
+
+        #buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 11.125rem; }
+        button {
+            border-radius: 1rem;
+            padding: 1rem;
+
+            font-family: "Segoe UI", serif;
+
+            color: white;
+            background-color: black;
+        }
+
+        button:first-of-type { background-color: red; border-color: red; color: black; }
+    </style>
+</body>
+</html>

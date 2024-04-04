@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+    </script>
+
+    <div class="container">
+        <h1>Register</h1>
+        <form method="post" th:object="${accountForm}">
+            <p>Name: <input class="form-control" type="text" th:field="*{name}"></p>
+            <p>Username: <input class="form-control" type="text" th:field="*{username}"></p>
+            <p>Password: <input class="form-control" type="password" th:field="*{password}"></p>
+            <p>Password: <input class="form-control" type="password" th:field="*{passwordRepeat}"></p>
+            <div id="buttons">
+                <button id="delete" type="reset">Clear Data</button>
+                <button id="save" type="submit">Save Data</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('save').addEventListener('click', () =>{
+
+        });
+    </script>
+
+    <style>
+        h1 { margin: 2.5rem 0; }
+
+        #buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 75%; }
+        button {
+            border-radius: 1rem;
+
+            margin-top: 3rem;
+            padding: 1rem;
+
+            font-family: "Segoe UI", serif;
+
+            color: white;
+            background-color: black;
+        }
+    </style>
+</body>
+</html>
