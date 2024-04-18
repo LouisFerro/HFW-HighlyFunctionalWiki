@@ -2,34 +2,34 @@ insert into test.public.account ( id, name, username, password, account_type )
 values (
     nextval('account_seq'),
     'Louis Ferro',
-    'Louisthemagic',
-    'Password',
+    'LF',
+    'LouisFerro123456789!',
     'OWNER'
 );
 
 insert into test.public.account ( id, name, username, password, account_type )
 values (
     nextval('account_seq'),
-    'Niklas Hasenbacher',
-    'Niklas2019',
-    'Password',
+    'Unger Klaus',
+    'UK',
+    'UngerKlaus123456789!',
     'ADMINISTRATOR'
 );
 
 insert into test.public.account ( id, name, username, password, account_type )
 values (
     nextval('account_seq'),
-    'Maximilian Mustermann',
-    'MaxMuster',
-    'Password',
+    'Andreas Schenk',
+    'AS',
+    'AndreasSchenk123456789!',
     'EDITOR'
 );
 
 insert into test.public.account ( id, name, username, password, account_type )
 values (
     nextval('account_seq'),
-    'Alan Turing',
-    'tuneIn',
-    'IGotEnigma',
+    'Niklas Hasenbacher',
+    'NH',
+    'NiklasHasenbacher123456789!',
     'READER'
 );

@@ -1,4 +1,4 @@
-package wiki.hf.presentation.router;
+package wiki.hf.presentation.routers;
 
 import static wiki.hf.domain.TestFixtures.*;
 import wiki.hf.domain.*;
@@ -35,7 +35,7 @@ class ItemRouterTest {
         when(itemService.findItemsByPage(page)).thenReturn(items);
         when(itemService.findPageByName("4 Mountain Walk")).thenReturn(Optional.of(page));
 
-        mockMvc.perform(get("/4 Mountain Walk"))
+        mockMvc.perform(get("/page/4 Mountain Walk"))
                .andExpect(status().isOk())
                .andExpect(model().attribute("page", page))
                .andExpect(model().attribute("items", items))

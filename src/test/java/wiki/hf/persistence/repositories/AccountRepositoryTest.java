@@ -22,7 +22,7 @@ class AccountRepositoryTest
     @BeforeEach
     void SetupAccount()
     {
-        account = TestFixtures.Account();
+        account = TestFixtures.LF_Owner();
     }
 
     @Test

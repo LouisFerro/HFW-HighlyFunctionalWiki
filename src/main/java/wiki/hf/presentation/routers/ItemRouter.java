@@ -1,4 +1,4 @@
-package wiki.hf.presentation.router;
+package wiki.hf.presentation.routers;
 
 import wiki.hf.domain.*;
 import wiki.hf.service.*;
@@ -16,7 +16,7 @@ import java.util.*;
 
 @Log4j2
 @Controller
-@RequestMapping
+@RequestMapping("/page")
 public class ItemRouter {
 
     private final ItemService itemService;
