@@ -3,10 +3,10 @@ package wiki.hf.service;
 import wiki.hf.domain.*;
 import wiki.hf.foundation.*;
 import wiki.hf.persistence.repositories.*;
+import wiki.hf.presentation.dataTransferObjects.AccountRequest;
 import wiki.hf.service.exceptions.*;
 import wiki.hf.service.policies.*;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import lombok.*;
@@ -32,34 +32,59 @@ public class AccountService implements LikeFormat {
                                    .orElseGet(repository::findAll));
     }
 
-    public Account findByUsernameAndPassword(String username, String password) {
+    public Account checkByUsernameAndPassword(String username, String password) {
+        repository.findByUsernameIgnoreCase(username)
+                  .orElseThrow(() -> AccountException.NoAccountExists(username));
+
         return repository.findByUsernameIgnoreCaseAndPassword(username, password)
-                         .orElseThrow(() -> AccountNoContentException.UsernameAndPassword(username, password));
+                         .orElseThrow(() -> AccountException.WrongPassword(username, password));
     }
 
     public Boolean checkByIdAndPassword(Long id, String password) {
-        var account = repository.existsByIdAndPassword(id, password);
+        var account = repository.existsById(id);
 
-        if(account) return true;
-        else throw AccountNoContentException.IdAndPassword(id, password);
-    }
+        if (!account) throw AccountException.NoAccountExists(id);
+        else {
+            account = repository.existsByIdAndPassword(id, password);
 
-    public void update(Account account) {
-        repository.save(account);
-    }
-
-    public Account save(String name, String username, String password) {
-        if(repository.existsByUsernameIgnoreCase(username)) {
-            throw UserAlreadyExistsException.Username(username);
+            if (!account) throw AccountException.WrongPassword(id, password);
         }
 
-        PasswordPolicy.check(password);
-        Account account = Account.builder()
-                                 .name(name)
-                                 .username(username)
-                                 .password(password)
-                                 .accountType(AccountType.READER)
-                                 .build();
+        return true;
+    }
+
+    public Account update(AccountRequest accountRequest) {
+        Account newAccount = repository.findByUsernameIgnoreCase(accountRequest.username())
+                                       .orElseThrow(() -> AccountException.NoAccountExists(accountRequest.username()));
+
+        if (accountRequest.name().isBlank()) throw AccountException.NoName();
+        if (accountRequest.username().isBlank()) throw AccountException.NoUsername();
+
+        PasswordPolicy.check(accountRequest.password());
+
+        newAccount.setName(accountRequest.name());
+        newAccount.setUsername(accountRequest.username());
+        newAccount.setPassword(accountRequest.password());
+        newAccount.setAccountType(accountRequest.accountType());
+
+        repository.save(newAccount);
+        return newAccount;
+    }
+
+    public Account save(AccountRequest accountRequest) {
+        if (accountRequest.name().isBlank()) throw AccountException.NoName();
+        if (accountRequest.username().isBlank()) throw AccountException.NoUsername();
+        if (repository.existsByUsernameIgnoreCase(accountRequest.username())) throw AccountException.AccountExists(accountRequest.username());
+
+        var account = Account.builder()
+                             .name(accountRequest.name())
+                             .username(accountRequest.username())
+                             .password(accountRequest.password())
+                             .accountType(AccountType.READER)
+                             .build();
+
+        PasswordPolicy.check(account.getPassword());
+        if (!accountRequest.password().equals(accountRequest.repeatedPassword())) throw AccountException.WrongRepeatedPassword();
 
         repository.save(account);
         return account;

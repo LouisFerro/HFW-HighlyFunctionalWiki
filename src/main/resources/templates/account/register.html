@@ -15,11 +15,31 @@
 
     <div class="container">
         <h1>Register</h1>
-        <form method="post" th:object="${accountForm}">
-            <p>Name: <input class="form-control" type="text" th:field="*{name}"></p>
-            <p>Username: <input class="form-control" type="text" th:field="*{username}"></p>
-            <p>Password: <input class="form-control" type="password" th:field="*{password}"></p>
-            <p>Password: <input class="form-control" type="password" th:field="*{passwordRepeat}"></p>
+        <form method="post" th:object="${accountRequest}">
+            <div class="mb-3">
+                <p>Name: <input class="form-control" type="text" th:field="*{name}"></p>
+                <small class="form-text text-muted" th:text="#{Description.accountRequest.name}"></small>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('name')}"
+                                                             th:errors="*{name}" ></div>
+            </div>
+            <div class="mb-3">
+                <p>Username: <input class="form-control" type="text" th:field="*{username}"></p>
+                <small class="form-text text-muted" th:text="#{Description.accountRequest.username}"></small>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}"
+                                                             th:errors="*{username}" ></div>
+            </div>
+            <div class="mb-3">
+                <p>Password: <input class="form-control" type="password" th:field="*{password}"></p>
+                <small class="form-text text-muted" th:text="#{Description.accountRequest.password}"></small>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}"
+                                                             th:errors="*{password}" ></div>
+            </div>
+            <div class="mb-3">
+                <p>Password: <input class="form-control" type="password" th:field="*{repeatedPassword}"></p>
+                <small class="form-text text-muted" th:text="#{Description.accountRequest.repeatedPassword}"></small>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('repeatedPassword')}"
+                                                             th:errors="*{repeatedPassword}" ></div>
+            </div>
             <div id="buttons">
                 <button id="delete" type="reset">Clear Data</button>
                 <button id="save" type="submit">Save Data</button>
@@ -27,20 +47,15 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('save').addEventListener('click', () =>{
-
-        });
-    </script>
-
     <style>
         h1 { margin: 2.5rem 0; }
+        p { margin: 0; }
 
         #buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 75%; }
         button {
             border-radius: 1rem;
 
-            margin-top: 3rem;
+            margin: 3.5rem 0;
             padding: 1rem;
 
             font-family: "Segoe UI", serif;

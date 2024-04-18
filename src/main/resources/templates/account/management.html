@@ -32,21 +32,20 @@
         </table>
     </main>
     <div id="popupContainer">
-        <div id="popup">
+        <div>
             <div id="editMenu">
-                <form>
+                <form method="post" th:object="${accountRequest}">
                     <h2>Edit Account</h2>
                     <div id="inputs">
-                        <p>Identification:</p><input id="id" type="number"/>
-                        <p>Name:</p><input id="name" type="text"/>
-                        <p>Username:</p><input id="username" type="text"/>
-                        <p>Password:</p><input id="password" type="text"/>
-                        <p class="passwordRepeat">Password:</p><input id="passwordRepeat" class="passwordRepeat" type="text"/>
-                        <p>Role:</p><input id="role"/>
+                        <p>Name:</p><input id="name" type="text" th:field="*{name}" />
+                        <p>Username:</p><input id="username" type="text" th:field="*{username}" />
+                        <p>Password:</p><input id="password" type="text" th:field="*{password}" />
+                        <p class="passwordRepeat">Password:</p><input id="passwordRepeat" class="passwordRepeat" type="text" th:field="*{repeatedPassword}" />
+                        <p>Role:</p><input id="role" th:field="*{accountType}" />
                     </div>
                     <div id="buttons">
                         <button id="delete">Delete Account</button>
-                        <button id="save">Save Data</button>
+                        <button id="save" type="submit">Save Data</button>
                     </div>
                 </form>
             </div>
@@ -80,10 +79,13 @@
 
         const popupContainer = document.getElementById('popupContainer');
 
+        popupContainer.addEventListener('click', (event) => {
+            if (event.target === popupContainer) { popupContainer.style.display = 'none'; }
+        });
+
         function editAccount(account) {
             const oldPassword = account.password;
 
-            document.getElementById('id').value = account.id;
             document.getElementById('name').value = account.name;
             document.getElementById('username').value = account.username;
             document.getElementById('password').value = account.password;
@@ -97,55 +99,25 @@
             });
 
             document.getElementById('delete').addEventListener('click', () => { deleteAccount(account.id); });
-            document.getElementById('save').addEventListener('click', () => {
-                const password = document.getElementById('password');
-                const passwordRepeat = document.getElementById('passwordRepeat');
-
-                if (passwordRepeat.style.display === 'none' || password.value === passwordRepeat.value) {
-                    account.password = password.value;
-                    saveAccount(account);
-                }
-                else { alert('The passwords do not match!'); } // TODO: Implement proper error messages.
-            });
 
             popupContainer.style.display = 'flex';
         }
 
-        popupContainer.addEventListener('click', (event) => {
-            if (event.target === popupContainer) { popupContainer.style.display = 'none'; }
-        });
-
         async function deleteAccount(id) {
             const password = window.prompt("Authorize this action by entering the password for this account:");
 
-            await fetch(`/account/delete/${id}`, {
+            await fetch(`/account/management/${id}`, {
                 method: 'delete',
                 headers: { 'Content-Type': 'application/json' },
                 body: password
-            })
+            }).then(() => {
+                const error = /*[[${error}]]*/ 'default';
+                console.log(error);
 
-            const error = /*[[${error}]]*/ 'default';
-            if (error) { window.alert("The entered password is incorrect. Authorization failed."); }
-            else { window.location.reload(); }
+                if (error) { window.alert("The entered password is incorrect. Authorization failed."); }
+                else { window.location.reload(); }
+            });
         }
-
-        async function saveAccount(account) {
-            console.log(account);
-
-            await fetch('/account/update', {
-                method: 'put',
-                headers: { 'Content-Type': 'application/json' ,
-                           'Accept': 'application/json'},
-                body: JSON.stringify(account)
-            }).then(() => { /* window.location.reload(); */ });
-        }
-
-        /*
-        window.addEventListener('beforeunload', async () => {
-            await new Promise(r => setTimeout(r, 10000));
-        });
-        */
-
         /*]]>*/
     </script>
 
@@ -166,7 +138,7 @@
 
             top: 0;
 
-            background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0,0,0,0.5);
             z-index: 2;
         }
 
