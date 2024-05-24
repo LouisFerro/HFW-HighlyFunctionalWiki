@@ -5,10 +5,37 @@ GET http://localhost:8080/api/account
 GET http://localhost:8080/api/account?name=Louis%20Ferro
 
 ### 3 | Get accounts with username
-GET http://localhost:8080/api/account?username=Louis
+GET http://localhost:8080/api/account?username=LF
 
 ### 4 | Get accounts with fullName and username
-GET http://localhost:8080/api/account?name=Niklas&username=2019
+GET http://localhost:8080/api/account?name=Unger&username=k
 
 ### 5 | Get account with username and password
-GET http://localhost:8080/api/account/Louisthemagic/A
+GET http://localhost:8080/api/account/LF/LouisFerro123456789!
+
+### 6 | Put account with account
+PUT http://localhost:8080/api/account/update
+Content-Type: application/json
+
+{
+  "name": "Niklas ",
+  "username": "NH",
+  "password": "NiklasHasenbacher123456789!",
+  "repeatedPassword": "NiklasHasenbacher123456789!",
+  "accountType": "EDITOR"
+}
+
+### 7 | Post account with account
+POST http://localhost:8080/api/account/register
+Content-Type: application/json
+
+{
+  "name": "Niklas Hasenbacher",
+  "username": "NH",
+  "password": "NiklasHasenbacher123456789!",
+  "repeatedPassword": "NiklasHasenbacher123456789!",
+  "accountType": "READER"
+}
+
+### 8 | Delete account with id
+DELETE http://localhost:8080/api/account/delete/151
