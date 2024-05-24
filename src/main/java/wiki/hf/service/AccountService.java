@@ -33,6 +33,8 @@ public class AccountService implements LikeFormat {
     }
 
     public Account checkByUsernameAndPassword(String username, String password) {
+        log.debug("Checking account by username: {} and password: {}", username, password);
+
         repository.findByUsernameIgnoreCase(username)
                   .orElseThrow(() -> AccountException.NoAccountExists(username));
 
@@ -41,6 +43,8 @@ public class AccountService implements LikeFormat {
     }
 
     public Boolean checkByIdAndPassword(Long id, String password) {
+        log.debug("Checking account by id: {} and password: {}", id, password);
+
         var account = repository.existsById(id);
 
         if (!account) throw AccountException.NoAccountExists(id);
@@ -54,24 +58,28 @@ public class AccountService implements LikeFormat {
     }
 
     public Account update(AccountRequest accountRequest) {
-        Account newAccount = repository.findByUsernameIgnoreCase(accountRequest.username())
-                                       .orElseThrow(() -> AccountException.NoAccountExists(accountRequest.username()));
+        log.debug("Updating account: {}", accountRequest);
+        Account account = repository.findByUsernameIgnoreCase(accountRequest.username())
+                                    .orElseThrow(() -> AccountException.NoAccountExists(accountRequest.username()));
 
         if (accountRequest.name().isBlank()) throw AccountException.NoName();
         if (accountRequest.username().isBlank()) throw AccountException.NoUsername();
 
         PasswordPolicy.check(accountRequest.password());
 
-        newAccount.setName(accountRequest.name());
-        newAccount.setUsername(accountRequest.username());
-        newAccount.setPassword(accountRequest.password());
-        newAccount.setAccountType(accountRequest.accountType());
+        account.setName(accountRequest.name());
+        account.setUsername(accountRequest.username());
+        account.setPassword(accountRequest.password());
+        account.setAccountType(accountRequest.accountType());
 
-        repository.save(newAccount);
-        return newAccount;
+        log.info("Account {}, has been updated successfully", account);
+        repository.save(account);
+        return account;
     }
 
-    public Account save(AccountRequest accountRequest) {
+    public Account create(AccountRequest accountRequest) {
+        log.debug("Saving account: {}", accountRequest);
+
         if (accountRequest.name().isBlank()) throw AccountException.NoName();
         if (accountRequest.username().isBlank()) throw AccountException.NoUsername();
         if (repository.existsByUsernameIgnoreCase(accountRequest.username())) throw AccountException.AccountExists(accountRequest.username());
@@ -86,6 +94,7 @@ public class AccountService implements LikeFormat {
         PasswordPolicy.check(account.getPassword());
         if (!accountRequest.password().equals(accountRequest.repeatedPassword())) throw AccountException.WrongRepeatedPassword();
 
+        log.info("Account {}, has been created successfully", account);
         repository.save(account);
         return account;
     }

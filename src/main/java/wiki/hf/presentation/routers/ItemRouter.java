@@ -22,7 +22,7 @@ public class ItemRouter {
     private final ItemService itemService;
 
     @GetMapping("/{name}")
-    private String page(Model model, @PathVariable String name) {
+    private String browsePage(Model model, @PathVariable String name) {
         log.info("Loading page '{}'", name);
 
         Optional<Item> page = itemService.findPageByName(name);

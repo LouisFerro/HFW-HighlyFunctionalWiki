@@ -25,7 +25,7 @@ public class AccountRouter {
     private final AccountService service;
 
     @GetMapping("/login")
-    private String loginAccount() { return "account/login"; }
+    private String login() { return "account/login"; }
 
     @GetMapping("/register")
     private String register(Model model) {
@@ -37,7 +37,7 @@ public class AccountRouter {
     }
 
     @PostMapping("/register")
-    private String postAccount(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
+    private String post(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
         log.info("Saving account: {}", accountRequest);
 
         if (accountRequestBindingResult.hasErrors()) {
@@ -46,9 +46,9 @@ public class AccountRouter {
             return "account/register";
         }
 
-        try { service.save(accountRequest); }
+        try { service.create(accountRequest); }
         catch (BaseException exception) {
-            handling(accountRequestBindingResult, exception);
+            handleException(accountRequestBindingResult, exception);
 
             return "account/register";
         }
@@ -57,7 +57,7 @@ public class AccountRouter {
     }
 
     @GetMapping("/management")
-    private String manageAccounts(Model model) {
+    private String manage(Model model) {
         log.debug("Loading accounts");
 
         List<Account> accounts = service.findAllByName(Optional.empty(), Optional.empty());
@@ -71,7 +71,7 @@ public class AccountRouter {
     }
 
     @PostMapping("/management")
-    private String updateAccount(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
+    private String update(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
         log.info("Updating account: {}", accountRequest);
 
         if (accountRequestBindingResult.hasErrors()) {
@@ -82,14 +82,14 @@ public class AccountRouter {
 
         try { service.update(accountRequest); }
         catch (BaseException exception) {
-            handling(accountRequestBindingResult, exception);
+            handleException(accountRequestBindingResult, exception);
         }
 
         return "redirect:/account/management";
     }
 
     @DeleteMapping("/management/{id}")
-    private void deleteAccount(Model model, @PathVariable Long id, @RequestBody String password) {
+    private void delete(Model model, @PathVariable Long id, @RequestBody String password) {
         log.info("Checking account by id {} and password {}", id, password);
 
         try {
@@ -106,7 +106,7 @@ public class AccountRouter {
         }
     }
 
-    private void handling(BindingResult accountRequestBindingResult, BaseException exception) {
+    private void handleException(BindingResult accountRequestBindingResult, BaseException exception) {
         log.error(exception.getType() + ": " + exception.getMessage());
 
         var field = "";

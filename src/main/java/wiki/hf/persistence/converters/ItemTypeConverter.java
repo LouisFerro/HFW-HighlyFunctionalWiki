@@ -1,12 +1,12 @@
 package wiki.hf.persistence.converters;
 
-import static wiki.hf.domain.ItemType.*;
 import wiki.hf.domain.*;
-import wiki.hf.persistence.exceptions.DataQualityException;
+import static wiki.hf.domain.ItemType.*;
 
 import jakarta.persistence.*;
+import wiki.hf.persistence.exceptions.DataQualityException;
 
-import java.util.*;
+import java.util.Optional;
 
 @Converter(autoApply = true)
 public class ItemTypeConverter implements AttributeConverter<ItemType, String>
