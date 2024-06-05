@@ -7,11 +7,11 @@ public record AccountResult(String name,
                             String password,
                             String accountType) {
 
-    public AccountResult(Account account) {
+    public AccountResult (Account account) {
         this(account.getName(), account.getUsername(), account.getPassword(), String.valueOf(account.getAccountType()));
     }
 
-    public AccountResult(AccountRequest accountRequest) {
+    public AccountResult (AccountRequest accountRequest) {
         this(accountRequest.name(), accountRequest.username(), accountRequest.password(), String.valueOf(accountRequest.accountType()));
     }
 }

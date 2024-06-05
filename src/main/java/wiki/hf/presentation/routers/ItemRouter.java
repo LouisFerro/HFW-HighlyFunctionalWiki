@@ -39,6 +39,6 @@ public class ItemRouter {
 
         log.info("Loading of page '{}' completed", name);
 
-        return "page/index";
+        return "page/main";
     }
 }

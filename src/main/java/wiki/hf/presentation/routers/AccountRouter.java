@@ -37,13 +37,13 @@ public class AccountRouter {
     }
 
     @PostMapping("/register")
-    private String post(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
+    private String create(@ModelAttribute("accountRequest") AccountRequest accountRequest, BindingResult accountRequestBindingResult) {
         log.info("Saving account: {}", accountRequest);
 
         if (accountRequestBindingResult.hasErrors()) {
             log.error(accountRequestBindingResult.getAllErrors());
 
-            return "account/register";
+            return "account/register";  
         }
 
         try { service.create(accountRequest); }
