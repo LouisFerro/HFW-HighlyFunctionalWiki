@@ -1,8 +1,10 @@
 package wiki.hf.service;
 
 import wiki.hf.domain.*;
+
 import static wiki.hf.domain.TestFixtures.*;
 import wiki.hf.persistence.repositories.*;
+import wiki.hf.presentation.dataTransferObjects.AccountRequest;
 import wiki.hf.service.exceptions.*;
 
 import org.mockito.*;
@@ -11,9 +13,10 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
-import wiki.hf.service.policies.exceptions.PasswordPolicyViolationException;
+import static org.junit.jupiter.api.Assertions.*;
 
 import static org.assertj.core.api.Assumptions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.*;
 
@@ -28,22 +31,32 @@ class AccountServiceTest {
     Account account3;
     Account account4;
 
+    String correctUsername;
+    String incorrectUsername;
     String correctPassword;
     String incorrectPassword;
 
+    Long correctId;
+    Long incorrectId;
+
     @BeforeEach
-    void setUp() {
+    void setup() {
         assumeThat(repository).isNotNull();
 
         service = new AccountService(repository);
 
-        account1 = Louisthemagic_Owner();
-        account2 = Niklas2019_Administrator();
-        account3 = MaxMuster_Editor();
-        account4 = Account();
+        account1 = LF_Owner();
+        account2 = UK_Administrator();
+        account3 = AS_Editor();
+        account4 = NH_Reader();
 
+        correctUsername = "Louisthemagic";
+        incorrectUsername = "Louisthemagi";
         correctPassword = "Password";
         incorrectPassword = "password";
+
+        correctId = 1L;
+        incorrectId = 2L;
     }
 
     @Test
@@ -53,30 +66,29 @@ class AccountServiceTest {
 
         when(repository.findAll()).thenReturn(List.of(account1, account2, account3, account4));
 
-        assumeThat(service.findAllByName(name, username)).containsExactly(account1, account2, account3, account4);
-        assumeThat(service.findAllByName(name, username)).containsExactlyInAnyOrder(account3, account2, account4, account1);
+        assertThat(service.findAllByName(name, username)).containsExactly(account1, account2, account3, account4);
+        assertThat(service.findAllByName(name, username)).containsExactlyInAnyOrder(account3, account2, account4, account1);
 
         verify(repository, times(2)).findAll();
         verifyNoMoreInteractions(repository);
     }
 
     // TODO: Fix this Test, which is not returning a valid Account Object upon invoking the findAllByName method.
-    /*
+
     @Test
     void findAllByName() {
         Optional<String> name = Optional.of("Louis Ferro");
         Optional<String> username = Optional.empty();
 
-        Account account = Louisthemagic_Owner();
+        Account account = LF_Owner();
 
         when(repository.findAllByNameLikeIgnoreCase(name.get() + "%")).thenReturn(List.of(account));
 
-        assumeThat(service.findAllByName(name, username)).containsExactly(account);
+        assertThat(service.findAllByName(name, username)).containsExactly(account);
 
         verify(repository).findAllByNameLikeIgnoreCase(any());
         verifyNoMoreInteractions(repository);
     }
-    */
 
     @Test
     void findAllByUsername() {
@@ -91,55 +103,99 @@ class AccountServiceTest {
         verifyNoMoreInteractions(repository);
     }
 
-    /*
     @Test
-    void findByUsernameAndPassword() {
-        String correctUsername = "louisthemagic";
-        String incorrectUsername = "louisthemagi";
+    void checkByUsernameAndPassword() {
+        when(repository.findByUsernameIgnoreCase(correctUsername)).thenReturn(Optional.of(account1));
+        when(repository.findByUsernameIgnoreCase(incorrectUsername)).thenThrow(
+            AccountException.NoAccountExists(incorrectUsername)
+        );
 
         when(repository.findByUsernameIgnoreCaseAndPassword(correctUsername, correctPassword)).thenReturn(Optional.of(account1));
-        when(repository.findByUsernameIgnoreCaseAndPassword(incorrectUsername, correctPassword)).thenThrow(
-            AccountNoContentException.UsernameAndPassword(incorrectUsername, correctPassword)
-        );
         when(repository.findByUsernameIgnoreCaseAndPassword(correctUsername, incorrectPassword)).thenThrow(
-            AccountNoContentException.UsernameAndPassword(correctUsername, incorrectPassword)
+            AccountException.WrongPassword(correctUsername, incorrectPassword)
         );
 
-        assumeThat(service.findByUsernameAndPassword(correctUsername, correctPassword)).isSameAs(account1);
-        assumeThat(service.findByUsernameAndPassword(incorrectUsername, correctPassword)).(AccountNoContentException.class);
-        assumeThat(service.findByUsernameAndPassword(correctUsername, incorrectPassword)).isInstanceOf(AccountNoContentException.class);
+        assertThat(service.checkByUsernameAndPassword(correctUsername, correctPassword)).isSameAs(account1);
+        assertThrows(AccountException.class, () -> service.checkByUsernameAndPassword(incorrectUsername, correctPassword));
+        assertThrows(AccountException.class, () -> service.checkByUsernameAndPassword(correctUsername, incorrectPassword));
 
-        verify(repository, times(3)).findByUsernameIgnoreCaseAndPassword(any(), any());
+        verify(repository, times(2)).findByUsernameIgnoreCaseAndPassword(any(), any());
         verifyNoMoreInteractions(repository);
     }
 
     @Test
     void checkByIdAndPassword() {
-        Long correctId = 1L;
-        Long incorrectId = 2L;
+        when(repository.existsById(correctId)).thenReturn(true);
+        when(repository.existsById(incorrectId)).thenThrow(AccountException.NoAccountExists(incorrectId));
 
         when(repository.existsByIdAndPassword(correctId, correctPassword)).thenReturn(true);
-        when(repository.existsByIdAndPassword(incorrectId, correctPassword)).thenThrow(
-                AccountNoContentException.IdAndPassword(incorrectId, correctPassword)
-        );
         when(repository.existsByIdAndPassword(correctId, incorrectPassword)).thenThrow(
-                AccountNoContentException.IdAndPassword(correctId, incorrectPassword)
+            AccountException.WrongPassword(correctId, incorrectPassword)
         );
 
-        verify(repository, times(3)).existsByIdAndPassword(any(), any());
+        assertThat(service.checkByIdAndPassword(correctId, correctPassword)).isTrue();
+        assertThrows(AccountException.class, () -> service.checkByIdAndPassword(incorrectId, correctPassword));
+        assertThrows(AccountException.class, () -> service.checkByIdAndPassword(correctId, incorrectPassword));
+
+        verify(repository, times(2)).existsByIdAndPassword(any(), any());
         verifyNoMoreInteractions(repository);
     }
-    */
+
+    // TODO: Fix
 
     @Test
-    void update() {
+    void createAccount() {
+        Account invalidName             = new Account("", "NH", "NiklasHasenbacher123456789!", AccountType.READER);
+        Account invalidUsername         = new Account("Niklas Hasenbacher", "", "NiklasHasenbacher123456789!", AccountType.READER);
+        Account invalidAccountType      = new Account("Louis Ferro", "NH", "NiklasHasenbacher123456789!", null);
+        Account invalidRepeatedPassword = new Account("Louis Ferro", "NH", "NiklasHasenbacher123456789!", AccountType.READER);
+
+        Account invalidPasswordMissingCharacters       = new Account("Louis Ferro", "Louisthemagic", "aaa", AccountType.OWNER);
+        Account invalidPasswordMissingDigit            = new Account("Louis Ferro", "Louisthemagic", "aaaaaaaaaaaa", AccountType.OWNER);
+        Account invalidPasswordMissingLowercaseLetter  = new Account("Louis Ferro", "Louisthemagic", "AAAAAA123456", AccountType.OWNER);
+        Account invalidPasswordMissingUppercaseLetter  = new Account("Louis Ferro", "Louisthemagic", "aaaaaa123456", AccountType.OWNER);
+        Account invalidPasswordMissingSpecialCharacter = new Account("Louis Ferro", "Louisthemagic", "aaaAAA123456", AccountType.OWNER);
+
+        when(repository.save(account4)).thenReturn(account4);
+
+        when(repository.save(invalidName)).thenThrow(AccountException.NoName());
+        when(repository.save(invalidUsername)).thenThrow(AccountException.NoUsername());
+        when(repository.save(invalidAccountType)).thenReturn(account4);
+        when(repository.save(invalidRepeatedPassword)).thenThrow(AccountException.WrongRepeatedPassword());
+
+        when(repository.save(invalidPasswordMissingCharacters)).thenThrow(PasswordPolicyException.MissingCharacters());
+        when(repository.save(invalidPasswordMissingDigit)).thenThrow(PasswordPolicyException.MissingDigit());
+        when(repository.save(invalidPasswordMissingLowercaseLetter)).thenThrow(PasswordPolicyException.MissingLowercaseLetter());
+        when(repository.save(invalidPasswordMissingUppercaseLetter)).thenThrow(PasswordPolicyException.MissingUppercaseLetter());
+        when(repository.save(invalidPasswordMissingSpecialCharacter)).thenThrow(PasswordPolicyException.InvalidOrMissingSpecialCharacter());
+
+        assertThat(service.create(AccountRequest.New(account4))).isSameAs(account4);
+
+        assertThrows(AccountException.class, () -> service.create(AccountRequest.New(invalidName)));
+        assertThrows(AccountException.class, () -> service.create(AccountRequest.New(invalidUsername)));
+        assertThat(service.create(AccountRequest.New(invalidAccountType))).isEqualTo(account4);
+        assertThrows(AccountException.class, () -> service.create(AccountRequest.New(invalidRepeatedPassword)));
+
+        assertThrows(PasswordPolicyException.class, () -> service.create(AccountRequest.New(invalidPasswordMissingCharacters)));
+        assertThrows(PasswordPolicyException.class, () -> service.create(AccountRequest.New(invalidPasswordMissingDigit)));
+        assertThrows(PasswordPolicyException.class, () -> service.create(AccountRequest.New(invalidPasswordMissingLowercaseLetter)));
+        assertThrows(PasswordPolicyException.class, () -> service.create(AccountRequest.New(invalidPasswordMissingUppercaseLetter)));
+        assertThrows(PasswordPolicyException.class, () -> service.create(AccountRequest.New(invalidPasswordMissingSpecialCharacter)));
+
+        verify(repository, times(9)).save(any());
+        verifyNoMoreInteractions(repository);
     }
 
+    // TODO: Fix
     @Test
-    void save() {
-    }
+    void deleteAccount() {
+        repository.save(account1);
 
-    @Test
-    void delete() {
+        when(repository.save(account1)).thenReturn(account1);
+        when(repository.existsById(Objects.requireNonNull(repository.save(account1).getId()))).thenReturn(true);
+
+        service.delete(account1.getId());
+
+        verify(repository).deleteById(account1.getId());
     }
 }

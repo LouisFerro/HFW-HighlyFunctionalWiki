@@ -1,22 +1,24 @@
 package wiki.hf.service;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import wiki.hf.domain.*;
-import wiki.hf.foundation.*;
 import wiki.hf.persistence.repositories.*;
-import wiki.hf.presentation.dataTransferObjects.AccountRequest;
-import wiki.hf.service.exceptions.*;
-import wiki.hf.service.policies.*;
 
+import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.core.*;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.transaction.annotation.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.*;
 
 import lombok.*;
 import lombok.extern.log4j.*;
 
-import java.io.Serializable;
 import java.security.*;
+import java.time.*;
+import java.time.temporal.*;
 import java.util.*;
+import java.util.stream.*;
+import java.io.*;
 
 @RequiredArgsConstructor
 @Log4j2
@@ -28,6 +30,25 @@ public class TokenService {
     private static final SecureRandom random = new SecureRandom();
 
     private final TokenRepository repository;
+
+    private final JwtEncoder encoder;
+
+    public String generateJwtToken(Authentication authentication) {
+        Instant instant = Instant.now();
+        String scope = authentication.getAuthorities().stream()
+                                     .map(GrantedAuthority::getAuthority)
+                                     .collect(Collectors.joining(" "));
+
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                                          .issuer("https://hf.wiki")
+                                          .issuedAt(instant)
+                                          .expiresAt(instant.plus(1, ChronoUnit.HOURS))
+                                          .subject(authentication.getName())
+                                          .claim("scope", scope)
+                                          .build();
+
+        return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
 
     private String createRandomValue(int length) {
         char[] value = new char[length];
@@ -43,7 +64,9 @@ public class TokenService {
     public <T extends AbstractPersistable<? extends Serializable>> Token createToken(TokenType type) {
         String value;
 
-        do { value = createRandomValue(5); }
+        do {
+            value = createRandomValue(5);
+        }
         while (repository.existsByValue(value));
 
         var token = Token.builder().value(value).type(type).build();

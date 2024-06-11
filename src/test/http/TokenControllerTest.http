@@ -1,0 +1,15 @@
+### 1 | Get token
+
+GET http://localhost:8080/api/token
+Content-Type: application/json
+Authorization: Basic username password
+
+> {%
+    client.global.set("token", response.body);
+%}
+
+### 2 | Get Account with token
+
+GET http://localhost:8080/api/account
+Content-Type: application/json
+Authorization: Bearer {{token}}

@@ -4,6 +4,7 @@ import wiki.hf.domain.*;
 import wiki.hf.service.*;
 import static wiki.hf.domain.TestFixtures.*;
 
+import org.springframework.security.test.context.support.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
@@ -27,6 +28,7 @@ class ItemRouterTest {
     private @MockBean ItemService itemService;
 
     @Test
+    @WithMockUser(username = "username", roles = "ADMINISTRATOR")
     void browsePage() throws Exception {
         Item page = FourMountainWalk_Page();
         List<Item> items = List.of(FourMountainWalk_Page(), Introduction_Section(), Generics_Text(),

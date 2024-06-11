@@ -40,6 +40,7 @@
                 <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('repeatedPassword')}"
                                                              th:errors="*{repeatedPassword}" ></div>
             </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <div id="buttons">
                 <button id="delete" type="reset">Clear Data</button>
                 <button id="save" type="submit">Save Data</button>

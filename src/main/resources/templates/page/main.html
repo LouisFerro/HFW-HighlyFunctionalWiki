@@ -84,8 +84,8 @@
                         }
 
                         element.parent.appendChild(element.container);
-                        break;
 
+                        break;
                     case('TEXT'):
                         element.content = document.createElement("p");
                         element.content.innerHTML = branch.content.text;
@@ -93,7 +93,6 @@
                         element.parent.appendChild(element.content);
 
                         break;
-
                     case('IMAGE'): break;
                     case('VIDEO'): break;
                 }

@@ -42,6 +42,7 @@
                         <p>Password:</p><input id="password" type="text" th:field="*{password}" />
                         <p class="passwordRepeat">Password:</p><input id="passwordRepeat" class="passwordRepeat" type="text" th:field="*{repeatedPassword}" />
                         <p>Role:</p><input id="role" th:field="*{accountType}" />
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     </div>
                     <div id="buttons">
                         <button id="delete">Delete Account</button>
