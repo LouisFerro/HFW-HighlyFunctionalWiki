@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.4</version>
+		<version>3.4.2</version>
 		<relativePath/>
 	</parent>
 	<groupId>hf.wiki</groupId>
@@ -14,7 +14,7 @@
 	<name>Highly Functional Wiki</name>
 	<description>A simple and modern but highly functional wiki</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>23</java.version>
 		<querydsl.version>5.0.0</querydsl.version>
 	</properties>
 	<dependencies>
@@ -93,16 +93,20 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
 		<!--dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>2.2.220</version>
 			<scope>test</scope>
 		</dependency-->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
