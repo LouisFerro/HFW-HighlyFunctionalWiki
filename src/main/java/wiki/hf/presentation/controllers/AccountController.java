@@ -34,7 +34,7 @@ public class AccountController {
 
     @GetMapping("/{username}/{password}")
     public HttpEntity<AccountResult> checkAccount(@PathVariable String username, @PathVariable String password) {
-        return ResponseEntity.ok(new AccountResult(service.checkByUsernameAndPassword(username, password)));
+        return ResponseEntity.ok(new AccountResult(service.findByUsernameAndPassword(username, password)));
     }
 
     @PutMapping("/update")
