@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.*;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-@EnableConfigurationProperties(RsaKeyConfiguration .class)
+@EnableConfigurationProperties(RsaKeyConfiguration.class)
 public class Application {
 
 	public static void main(String[] args) {

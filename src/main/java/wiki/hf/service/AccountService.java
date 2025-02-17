@@ -32,7 +32,7 @@ public class AccountService implements LikeFormat {
                                    .orElseGet(repository::findAll));
     }
 
-    public Account checkByUsernameAndPassword(String username, String password) {
+    public Account findByUsernameAndPassword(String username, String password) {
         log.debug("Checking account by username: {} and password: {}", username, password);
 
         repository.findByUsernameIgnoreCase(username)

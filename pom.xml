@@ -8,7 +8,7 @@
 		<version>3.1.4</version>
 		<relativePath/>
 	</parent>
-	<groupId>wiki.hf</groupId>
+	<groupId>hf.wiki</groupId>
 	<artifactId>HFWiki</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Highly Functional Wiki</name>

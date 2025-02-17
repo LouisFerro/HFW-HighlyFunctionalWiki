@@ -1,11 +1,38 @@
 package wiki.hf;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.github.dockerjava.api.model.*;
 
-@SpringBootTest
-class ApplicationTest {
+import org.springframework.context.annotation.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 
-	@Test
-	void contextLoads() {}
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
+
+@Configuration
+public class ApplicationTest {
+
+    public static void main(String[] args) {
+        SpringApplication.from(Application::main)
+                .with(ApplicationTest.class)
+                .run(args);
+    }
+
+    @Bean
+    @ServiceConnection
+    PostgreSQLContainer<?> postgresContainer() {
+        final int localPort = 65432;
+        final int exposedPort = 5432;
+
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"))
+                                         .withCreateContainerCmdModifier(cmd -> {
+                                             cmd.withName("4EHIF-POS-Postgres");
+                                             cmd.withHostConfig(
+                                                 new HostConfig().withPortBindings(
+                                                     new PortBinding(Ports.Binding.bindPort(localPort), new ExposedPort(exposedPort))));
+                                         })
+                                         .withUsername("username")
+                                         .withPassword("password")
+                                         .withReuse(true);
+    }
 }

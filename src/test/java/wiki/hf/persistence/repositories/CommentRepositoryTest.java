@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import org.junit.jupiter.api.*;
 
 @DataJpaTest
-@Import(TestContainerConfiguration.class)
+@Import(ApplicationTestContainerConfiguration.class)
 class CommentRepositoryTest {
 
     private @Autowired CommentRepository repository;

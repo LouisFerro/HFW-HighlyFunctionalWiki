@@ -9,6 +9,7 @@ import java.util.*;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
+
     List<Account> findAllByNameLikeIgnoreCase(String name);
 
     List<Account> findAllByUsernameLikeIgnoreCase(String username);

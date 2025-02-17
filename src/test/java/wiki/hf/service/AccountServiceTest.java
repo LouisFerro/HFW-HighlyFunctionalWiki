@@ -115,9 +115,9 @@ class AccountServiceTest {
             AccountException.WrongPassword(correctUsername, incorrectPassword)
         );
 
-        assertThat(service.checkByUsernameAndPassword(correctUsername, correctPassword)).isSameAs(account1);
-        assertThrows(AccountException.class, () -> service.checkByUsernameAndPassword(incorrectUsername, correctPassword));
-        assertThrows(AccountException.class, () -> service.checkByUsernameAndPassword(correctUsername, incorrectPassword));
+        assertThat(service.findByUsernameAndPassword(correctUsername, correctPassword)).isSameAs(account1);
+        assertThrows(AccountException.class, () -> service.findByUsernameAndPassword(incorrectUsername, correctPassword));
+        assertThrows(AccountException.class, () -> service.findByUsernameAndPassword(correctUsername, incorrectPassword));
 
         verify(repository, times(2)).findByUsernameIgnoreCaseAndPassword(any(), any());
         verifyNoMoreInteractions(repository);
